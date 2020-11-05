@@ -1,18 +1,40 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <AppButton @click="navigateToPanel">Admin test</AppButton>
   </div>
 </template>
 
 <script lang="ts">
+
 import { Options, Vue } from 'vue-class-component'
-import HelloWorld from '@/components/HelloWorld.vue' // @ is an alias to /src
+import AppButton from '../components/AppButton.vue'
 
 @Options({
-  components: {
-    HelloWorld
-  }
+  name: 'Home',
+  components: { AppButton }
 })
-export default class Home extends Vue {}
+
+export default class Home extends Vue {
+  private navigateToPanel () {
+    this.$router.push({ path: '/panel' })
+  }
+}
 </script>
+
+<style lang="scss" scoped>
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  a {
+    text-decoration: none;
+  }
+  .go-to {
+    background-color: #ff3beb;
+    padding: 15px;
+    color: white;
+    border-radius: 5px;
+  }
+}
+</style>

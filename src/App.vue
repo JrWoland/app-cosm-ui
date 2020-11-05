@@ -1,30 +1,50 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div id="app">
+    <router-view></router-view>
   </div>
-  <router-view/>
 </template>
 
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component'
+import Home from './views/Home.vue'
+@Options({
+  name: 'App',
+  components: { Home }
+})
+export default class App extends Vue {}
+</script>
+
 <style lang="scss">
+@import "./assets/scss/variables.scss";
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: #fafafa;
+  margin: 0;
+  color: $font-color;
+  a {
+    font-weight: bold;
+    text-decoration: none;
+    font-weight: 400;
+    color: $font-color;
+  }
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: $main-font-family;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  color: $font-color;
 }
 
 #nav {
+  background-color: #fff;
   padding: 30px;
 
   a {
     font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+    text-decoration: none;
   }
 }
 </style>
