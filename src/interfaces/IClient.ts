@@ -1,7 +1,7 @@
 export default interface IClient {
-  id: string,
+  id: number,
   name: string,
-  surname: string,
+  surname?: string,
   phone: string,
-  age: number
+  age?: number
 }

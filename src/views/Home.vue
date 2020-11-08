@@ -16,7 +16,7 @@ import AppButton from '../components/AppButton.vue'
 
 export default class Home extends Vue {
   private navigateToPanel () {
-    this.$router.push({ path: '/panel' })
+    setTimeout(() => this.$router.push({ path: '/clients' }), 600)
   }
 }
 </script>

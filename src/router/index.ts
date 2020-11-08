@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import AppAddClientForm from '../components/AppAddClientForm.vue'
 import AppClientCard from '../components/AppClientCard.vue'
 import Clients from '../views/Clients.vue'
 import Home from '../views/Home.vue'
@@ -9,6 +10,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'Home',
     component: Home
+
+  },
+  {
+    path: '/create-client',
+    name: 'Create client',
+    component: AppAddClientForm
   },
   {
     path: '/panel',

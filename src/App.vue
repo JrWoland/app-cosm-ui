@@ -17,6 +17,7 @@ export default class App extends Vue {}
 <style lang="scss">
 @import "./assets/scss/variables.scss";
 * {
+  box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
 }
 
