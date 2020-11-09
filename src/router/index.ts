@@ -26,13 +26,13 @@ const routes: Array<RouteRecordRaw> = [
         path: '/clients',
         name: 'Clients',
         component: Clients
-      },
-      {
-        path: '/client/:id',
-        name: 'Client',
-        component: AppClientCard
       }
     ]
+  },
+  {
+    path: '/client/:id',
+    name: 'Client',
+    component: AppClientCard
   }
 ]
 

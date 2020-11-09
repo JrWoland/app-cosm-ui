@@ -1,19 +1,22 @@
 <template>
   <div class="panel">
-    <nav class="app-navigation">
-      <router-link class="app-navigation__link" to="/panel"><i class="fas fa-home"></i></router-link>
-      <router-link class="app-navigation__link" to="/clients"><i class="fas fa-users"></i></router-link>
-    </nav>
+    <AppNavSecondary>
+      <router-link class="panel__link" to="/panel"><i class="fas fa-home"></i></router-link>
+      <router-link class="panel__link" to="/clients"><i class="fas fa-users"></i></router-link>
+    </AppNavSecondary>
+
     <router-view />
+
   </div>
 </template>
 
 <script lang="ts">
-
 import { Options, Vue } from 'vue-class-component'
+import AppNavSecondary from '../components/AppNavSecondary.vue'
 
 @Options({
-  name: 'Panel'
+  name: 'Panel',
+  components: { AppNavSecondary }
 })
 
 export default class Panel extends Vue {}
@@ -23,26 +26,20 @@ export default class Panel extends Vue {}
 @import  '../assets/scss/variables.scss';
 .panel {
   margin-top: 55px;
-}
-.app-navigation {
-  position: fixed;
-  top:0;
-  left: 0;
-  width: 100%;
-  height: 45px;
-  background-color: #fff;
-  text-align: left;
-  box-shadow: $main-box-shadow;
 
   &__link {
     color: $font-color;
     font-size: 30px;
-    margin: 0px 5px;
+    margin-right: 15px;
+
   }
- a{
+
+ a {
    &.router-link-exact-active {
-       color:$main-color;
+       color: $main-color;
+       border-bottom: 2px solid $main-color;
      }
  }
 }
+
 </style>
