@@ -6,26 +6,34 @@
       </AppNavSecondary>
 
       <div class="client__info">
+
         <span>Informacje</span>
-        <div class="client__info-box">
-          <div class="client__info-box__header">
 
-          </div>
-          <p><span class="client__info-box__header__label">Wiek</span> {{clientDetails.age || 'brak'}}</p>
-          <p><span class="client__info-box__header__label">Telefon</span> {{clientDetails.phone}}</p>
-          <p><span class="client__info-box__header__label">Nast. wizyta</span> {{clientDetails.nextVisit}}</p>
-        </div>
+        <AppInfoBox>
+          <template v-slot:header>
+            <AppInfoBoxHeader>
+              <AppSubMenuBtn :items="['Edit', 'Delete']"/>
+            </AppInfoBoxHeader>
+          </template>
+
+          <template v-slot:content>
+            <p><span class="client__info-box__header__label">Wiek</span><input class="client__info-box__header__input" type="text" v-model="clientDetails.age" :disabled="clientDetailsEditable"></p>
+            <p><span class="client__info-box__header__label">Telefon</span><input class="client__info-box__header__input" type="text" v-model="clientDetails.phone" :disabled="clientDetailsEditable"></p>
+            <p><span class="client__info-box__header__label">Nast. wizyta</span><input class="client__info-box__header__input" type="text" v-model="clientDetails.nextVisit" :disabled="clientDetailsEditable"></p>
+          </template>
+        </AppInfoBox>
       </div>
 
-      <div class="client__info">
-        <span>Wizyty</span>
-        <div class="client__info-box">
-          <div class="client__info-box__header">
+      <AppInfoBox>
+        <template class="header" v-slot:header>
+          <AppInfoBoxHeader/>
+        </template>
 
-          </div>
+        <template>
 
-        </div>
-      </div>
+        </template>
+
+      </AppInfoBox>
 
   </div>
 </template>
@@ -34,13 +42,21 @@
 import { Options, Vue } from 'vue-class-component'
 import { client } from '../../mock/client'
 import AppNavSecondary from './AppNavSecondary.vue'
+import AppInfoBox from './AppInfoBox.vue'
+import AppInfoBoxHeader from './AppInfoBoxHeader.vue'
+import AppSubMenuBtn from './AppSubMenuBtn.vue'
 
 @Options({
   name: 'AppClientsCard',
-  components: { AppNavSecondary }
+  components: { AppNavSecondary, AppInfoBox, AppInfoBoxHeader, AppSubMenuBtn }
 })
 export default class AppClientsCard extends Vue {
   clientDetails = client
+  clientDetailsEditable = true
+
+  catchEvent (event: Event) {
+    console.log(event)
+  }
 }
 </script>
 
@@ -48,6 +64,7 @@ export default class AppClientsCard extends Vue {
 @import  '../assets/scss/variables.scss';
 
 .client {
+
   margin: $nav-bar-height 15px 0px 15px;
   &__nav {
   display: flex;
@@ -89,6 +106,22 @@ export default class AppClientsCard extends Vue {
          display: inline-block;
          width: 120px;
          font-weight: 700;
+       }
+
+       &__input {
+         outline: none;
+         color: $font-color;
+         padding: 5px 10px;
+         color: plum;
+         border: 1px solid plum;
+         border-radius: $main-border-radius;
+
+         &:disabled {
+           color: $font-color;
+           background-color: transparent;
+           border: none;
+           border: 1px solid transparent;
+         }
        }
     }
   }
