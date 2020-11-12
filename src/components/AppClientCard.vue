@@ -12,14 +12,19 @@
         <AppInfoBox>
           <template v-slot:header>
             <AppInfoBoxHeader>
-              <AppSubMenuBtn :items="['Edit', 'Delete']"/>
+              <div></div>
+              <div v-show="clientDetailsEditable">
+                <AppButton class= "sub-menu-btn sub-menu-btn--cancel" @click="clientDetailsEditable = false">Cancel</AppButton>
+                <AppButton class="sub-menu-btn" >Save</AppButton>
+              </div>
+              <AppSubMenuBtn v-show="!clientDetailsEditable" @item-menu-clicked="catchEvent" :items="['Edit']"/>
             </AppInfoBoxHeader>
           </template>
 
           <template v-slot:content>
-            <p><span class="client__info-box__header__label">Wiek</span><input class="client__info-box__header__input" type="text" v-model="clientDetails.age" :disabled="clientDetailsEditable"></p>
-            <p><span class="client__info-box__header__label">Telefon</span><input class="client__info-box__header__input" type="text" v-model="clientDetails.phone" :disabled="clientDetailsEditable"></p>
-            <p><span class="client__info-box__header__label">Nast. wizyta</span><input class="client__info-box__header__input" type="text" v-model="clientDetails.nextVisit" :disabled="clientDetailsEditable"></p>
+            <p><span class="client__info-box__header__label">Wiek</span><input class="client__info-box__header__input" type="text" v-model="clientDetails.age" :disabled="!clientDetailsEditable"></p>
+            <p><span class="client__info-box__header__label">Telefon</span><input class="client__info-box__header__input" type="text" v-model="clientDetails.phone" :disabled="!clientDetailsEditable"></p>
+            <p><span class="client__info-box__header__label">Nast. wizyta</span><input class="client__info-box__header__input" type="text" v-model="clientDetails.nextVisit" :disabled="!clientDetailsEditable"></p>
           </template>
         </AppInfoBox>
       </div>
@@ -45,27 +50,45 @@ import AppNavSecondary from './AppNavSecondary.vue'
 import AppInfoBox from './AppInfoBox.vue'
 import AppInfoBoxHeader from './AppInfoBoxHeader.vue'
 import AppSubMenuBtn from './AppSubMenuBtn.vue'
+import AppButton from './AppButton.vue'
 
 @Options({
   name: 'AppClientsCard',
-  components: { AppNavSecondary, AppInfoBox, AppInfoBoxHeader, AppSubMenuBtn }
+  components: { AppNavSecondary, AppInfoBox, AppInfoBoxHeader, AppSubMenuBtn, AppButton }
 })
 export default class AppClientsCard extends Vue {
   clientDetails = client
-  clientDetailsEditable = true
+  clientDetailsEditable = false
 
-  catchEvent (event: Event) {
-    console.log(event)
+  catchEvent () {
+    this.clientDetailsEditable = true
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @import  '../assets/scss/variables.scss';
+.sub-menu-btn {
+  width: 80px;
+  margin: 0px 5px;
+  font-size: 13px;
+  padding: 5px;
+  border:  1px solid $main-color;
+
+  &--cancel {
+    background-color: white;
+    color:  $main-color
+  }
+}
 
 .client {
 
   margin: $nav-bar-height 15px 0px 15px;
+
+  &__info {
+    padding: 15px 0px;
+  }
+
   &__nav {
   display: flex;
   justify-content: space-between;
@@ -82,10 +105,6 @@ export default class AppClientsCard extends Vue {
   &__name{
     flex-grow: 1;
     text-align: center;
-  }
-
-  &__info {
-    padding: 15px 0px;
   }
 
   &__info-box {
@@ -112,8 +131,8 @@ export default class AppClientsCard extends Vue {
          outline: none;
          color: $font-color;
          padding: 5px 10px;
-         color: plum;
-         border: 1px solid plum;
+         color: $main-color;
+         border: 1px solid $main-color;
          border-radius: $main-border-radius;
 
          &:disabled {

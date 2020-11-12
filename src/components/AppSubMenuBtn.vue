@@ -1,9 +1,11 @@
 <template>
 
   <div @click="toggleMenu" class="menu-btn">
-    <i class="fas fa-ellipsis-v"></i>
-    <div @click="toggleMenu" class="menu-list" v-show="showMenu">
-      <p @click="toggleMenu" v-for="(item, index) in items" :key="index">{{item}}</p>
+    <div class="menu-icon">
+      <i class="fas fa-ellipsis-v"></i>
+    </div>
+    <div class="menu-list" v-show="showMenu">
+      <p class="menu-list__item" @click="$emit('item-menu-clicked', item)" v-for="(item, index) in items" :key="index">{{item}}</p>
     </div>
   </div>
 
@@ -13,6 +15,7 @@
 import { Options, Vue } from 'vue-class-component'
 
 @Options({
+  emits: ['item-menu-clicked'],
   props: {
     items: {
       type: Array,
@@ -32,15 +35,6 @@ export default class AppSubMenuBtn extends Vue {
 
 <style lang="scss" scoped>
 @import "../assets/scss/variables.scss";
-.menu-list {
- position: absolute;
- padding: 10px;
- background-color: #fff;
- text-align: left;
- top: 30px;
- right: 0;
- box-shadow: $main-box-shadow;
-}
 .menu-btn {
   position: relative;
   width: min-content;
@@ -50,6 +44,24 @@ export default class AppSubMenuBtn extends Vue {
   &:hover {
     background-color: #ddd;
     cursor: pointer;
+  }
+}
+.menu-list {
+  position: absolute;
+  background-color: #fff;
+  text-align: left;
+  top: 30px;
+  right: 0;
+  box-shadow: $main-box-shadow;
+
+  &__item {
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    &:hover {
+      background-color: #ddd;
+    }
   }
 }
 </style>
