@@ -3,7 +3,7 @@
   <form class="add-visit" >
     <label class="add-visit__label" for="firstName">
       <span class="add-visit__label-title">Klient</span>
-      <select class="add-visit__input">
+      <select class="add-visit__input" v-model="selectedClient">
         <option class="add-visit__option" v-for="client in clientList" :value="client.id" :key="client.id">{{client.name}}</option>
       </select>
       <span class="add-visit__label-title">Rodzaj wizyty</span>
@@ -24,7 +24,7 @@
 
 </template>
 
-<script lang="ts">
+<script>
 import { Options, Vue } from 'vue-class-component'
 import AppButton from './AppButton.vue'
 import { visitTypes } from '../assets/ts/visitsTypes'
@@ -32,19 +32,19 @@ import { clientList } from '../../mock/client'
 
 @Options({
   name: 'AppAddVisitForm',
-  components: { AppButton },
-  watch: {
-    '$route.param.clientId': function (to: object, from: object) {
-      console.log(to, from)
-    }
-  }
+  components: { AppButton }
 })
 export default class AppAddVisitForm extends Vue {
-  visitTypes = visitTypes
+  visitTypes = visitTypes;
+  selectedClient = 'asd';
   clientList = clientList
 
+  mounted () {
+    this.selectedClient = this.$router.options.history.state.back.split('/').pop()
+  }
+
   createVisit () {
-    this.$router.push('/clients')
+    this.$router.back()
   }
 }
 </script>

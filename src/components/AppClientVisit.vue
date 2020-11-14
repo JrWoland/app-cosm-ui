@@ -1,6 +1,7 @@
 <template>
-
-  <div>Visit details</div>
+  <div>
+    visitDetails
+  </div>
 </template>
 
 <script>

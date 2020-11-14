@@ -48,7 +48,6 @@ export default class AppInfoClient extends Vue {
       const events = {
         Edit: () => { this.clientDetailsEditable = true }
       }
-
       events[type]()
     }
 }

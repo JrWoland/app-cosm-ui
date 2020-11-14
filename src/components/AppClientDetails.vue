@@ -19,10 +19,10 @@ import AppInfoClient from './AppInfoClient.vue'
 import AppInfoVisits from './AppInfoVisits.vue'
 
 @Options({
-  name: 'AppClientCard',
+  name: 'AppClientDetails',
   components: { AppNavSecondary, AppInfoClient, AppInfoVisits }
 })
-export default class AppClientCard extends Vue {
+export default class AppClientDetails extends Vue {
   clientDetails = client
   clientDetailsEditable = false
 
