@@ -4,15 +4,15 @@
       v-for="(client, index) in clientsList"
       :key="index"
       class="clients-list__item"
-      :to="`/client/1`"
+      :to="`/client/${client.id}`"
     >
       <span>{{ client.name }}</span>
       <span>{{ client.phone }}</span>
     </router-link>
 
-    <AppButton class="clients-list__add-client" @click="goToClientCreateForm"
-      ><i class="fas fa-plus"></i
-    ></AppButton>
+    <AppButton class="clients-list__add-client" @click="goToClientCreateForm">
+      <i class="fas fa-plus"></i>
+    </AppButton>
   </div>
 </template>
 
@@ -43,18 +43,14 @@ export default class Clients extends Vue {
 
 <style lang="scss" scoped>
 @import "../assets/scss/variables.scss";
+@import "../assets/scss/mixins.scss";
 .clients-list {
   list-style: none;
   text-align: left;
+  padding: 0px 15px;
 
   &__item {
-    display: flex;
-    justify-content: space-between;
-    background-color: #fff;
-    margin: 15px;
-    padding: 15px;
-    box-shadow: $main-box-shadow;
-    border-radius: $main-border-radius;
+    @include list-item;
   }
 
   &__add-client {

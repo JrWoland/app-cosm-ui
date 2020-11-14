@@ -27,7 +27,6 @@ export default class AppSubMenuBtn extends Vue {
   showMenu = false;
 
   toggleMenu () {
-    console.log(this.showMenu)
     this.showMenu = !this.showMenu
   }
 }
@@ -52,10 +51,10 @@ export default class AppSubMenuBtn extends Vue {
   text-align: left;
   top: 30px;
   right: 0;
-  box-shadow: $main-box-shadow;
+  box-shadow: 0px 2px 7px 0px #ddd;
 
   &__item {
-    padding: 10px;
+    padding: 10px 20px;
     width: 100%;
     height: 100%;
     margin: 0;

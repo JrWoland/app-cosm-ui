@@ -9,6 +9,7 @@ import { Options, Vue } from 'vue-class-component'
 import AppSubMenuBtn from './AppSubMenuBtn.vue'
 
 @Options({
+  name: 'AppInfoBoxHeader',
   components: { AppSubMenuBtn }
 })
 export default class AppInfoBoxHeader extends Vue {}

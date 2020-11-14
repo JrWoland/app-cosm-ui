@@ -49,7 +49,7 @@ export default class AppButton extends Vue {
   cursor: pointer;
   position: relative;
   transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-  box-shadow: 0 2px 25px rgba(255, 0, 130, 0.5);
+  box-shadow: 0 1px 5px  $button-bg;
 
   &:focus {
     outline: 0;
