@@ -57,7 +57,7 @@ export default class AppInfoVisits extends Vue {
 
 <style lang="scss" scoped>
 @import  '../assets/scss/variables.scss';
-@import "../assets/scss/mixins.scss";
+@import '../assets/scss/mixins.scss';
 
 .list-item {
   @include list-item;

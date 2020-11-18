@@ -1,11 +1,11 @@
+import AppClientCard from '@/components/AppClientCard.vue'
+import AppClientVisit from '@/components/AppClientVisit.vue'
+import Clients from '@/views/Clients.vue'
+import CreateClientView from '@/views/CreateClientView.vue'
+import CreateVisitView from '@/views/CreateVisitView.vue'
+import Home from '@/views/Home.vue'
+import Panel from '@/views/Panel.vue'
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import AppAddClientForm from '../components/AppAddClientForm.vue'
-import AppAddVisitForm from '../components/AppAddVisitForm.vue'
-import AppClientCard from '../components/AppClientCard.vue'
-import AppClientVisit from '../components/AppClientVisit.vue'
-import Clients from '../views/Clients.vue'
-import Home from '../views/Home.vue'
-import Panel from '../views/Panel.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -17,12 +17,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/create-client',
     name: 'Create client',
-    component: AppAddClientForm
+    component: CreateClientView
   },
   {
     path: '/create-visit',
     name: 'Create visit',
-    component: AppAddVisitForm
+    component: CreateVisitView
   },
   {
     path: '/panel',

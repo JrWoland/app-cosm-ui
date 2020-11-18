@@ -1,13 +1,16 @@
 <template>
   <div>
-    visitDetails
+    <AppLashesDetails />
   </div>
 </template>
 
 <script>
 import { Options, Vue } from 'vue-class-component'
+import AppLashesDetails from './AppLashesDetails'
+
 @Options({
-  name: 'AppClientVisit'
+  name: 'AppClientVisit',
+  components: { AppLashesDetails }
 })
 export default class AppClientVisit extends Vue {}
 </script>

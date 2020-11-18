@@ -8,4 +8,43 @@
     padding: 15px;
     box-shadow: $main-box-shadow;
     border-radius: $main-border-radius;
-  }
+}
+
+@mixin  app-form {
+  width: 100%;
+  min-height: 100px;
+  margin-top: 5px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: $main-box-shadow;
+  border-radius: $main-border-radius;
+
+     label {
+       display: flex;
+       font-weight: 700;
+       margin: 10px 0px;
+       span {
+         display: inline-block;
+         min-width: 110px;
+       }
+     }
+
+     input,
+     select {
+       width: 100%;
+       outline: none;
+       color: $font-color;
+       padding: 5px 10px;
+       color: $main-color;
+       background-color: transparent;
+       border: 1px solid $main-color;
+       border-radius: 5px;
+
+       &:disabled {
+         color: $font-color;
+         background-color: transparent;
+         border: none;
+         border: 1px solid transparent;
+       }
+     }
+}

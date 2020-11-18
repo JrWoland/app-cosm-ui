@@ -32,13 +32,13 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import AppButton from './AppButton.vue'
+import AppButton from '@/components/AppButton.vue'
 
 @Options({
-  name: 'AppAddClientForm',
+  name: 'CreateClientView',
   components: { AppButton }
 })
-export default class AppAddClientForm extends Vue {
+export default class CreateClientView extends Vue {
   createClient () {
     this.$router.push('/clients')
   }

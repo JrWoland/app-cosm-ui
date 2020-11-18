@@ -26,15 +26,15 @@
 
 <script>
 import { Options, Vue } from 'vue-class-component'
-import AppButton from './AppButton.vue'
-import { visitTypes } from '../assets/ts/visitsTypes'
+import AppButton from '@/components/AppButton.vue'
+import { visitTypes } from '@/assets/ts/visitsTypes'
 import { clientList } from '../../mock/client'
 
 @Options({
-  name: 'AppAddVisitForm',
+  name: 'CreateVisitView',
   components: { AppButton }
 })
-export default class AppAddVisitForm extends Vue {
+export default class CreateVisitView extends Vue {
   visitTypes = visitTypes;
   selectedClient = 'asd';
   clientList = clientList
