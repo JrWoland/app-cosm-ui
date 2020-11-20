@@ -7,21 +7,21 @@
       <template v-slot:header>
         <AppInfoBoxHeader>
           <router-link to="/create-visit" v-show="!isVisitDetailsShown"><i  class="fas fa-plus nav-arrow"></i></router-link>
-          <router-link :to="`/client/${$route.params.clientId}`" v-show="isVisitDetailsShown"><i  class="fas fa-arrow-left nav-arrow"></i></router-link>
-          <AppSubMenuBtn v-show="isVisitDetailsShown" @item-menu-clicked="catchEvent" :items="['Edit', 'Remove visit']"/>
+          <span v-show="isVisitDetailsShown" @click="() => isVisitDetailsShown=false"><i  class="fas fa-arrow-left nav-arrow"></i></span>
+          <AppSubMenuBtn v-show="!clientDetailsEditable && isVisitDetailsShown" @item-menu-clicked="catchEvent" :items="['Edit', 'Remove visit']"/>
+          <div v-show="clientDetailsEditable">
+            <AppButton class= "sub-menu-btn sub-menu-btn--cancel" @click="clientDetailsEditable = false">Cancel</AppButton>
+            <AppButton class="sub-menu-btn" >Save</AppButton>
+          </div>
         </AppInfoBoxHeader>
       </template>
 
       <template v-slot:content>
-        <!-- <router-link v-show="!isVisitDetailsShown" :to="`/client/${$route.params.clientId}/visit/${visit.id}`" v-for="(visit, index) in visits" class="list-item" :key="index">
-          {{visit.type}} <span>{{new Date(visit.date).toLocaleString()}}</span>
-        </router-link>
-        <router-view v-show="isVisitDetailsShown" /> -->
         <div v-show="!isVisitDetailsShown">
-          <p v-for="(visit, index) in visits" class="list-item" :key="index">{{visit.type}} <span>{{new Date(visit.date).toLocaleString()}}</span></p>
+          <p v-for="(visit, index) in visits" class="list-item" :key="index" @click="showVisitDetails(visit)">
+            {{visit.type}} <span>{{new Date(visit.date).toLocaleString()}}</span></p>
         </div>
-        <AppClientVisit />
-        <component :is="AppClientVisit"></component>
+        <AppClientVisit v-if="isVisitDetailsShown" :visit="currentVisit" :isEditable="clientDetailsEditable"/>
       </template>
 
     </AppInfoBox>
@@ -47,16 +47,28 @@ import AppClientVisit from './AppClientVisit.vue'
     }
   },
   computed: {
-    isVisitDetailsShown () {
-      return !!this.$route.params.visitId
+    visit () {
+      return this.visits[0]
     }
   }
 })
 export default class AppInfoVisits extends Vue {
  clientDetailsEditable = false
+ currentVisit = {}
+ isVisitDetailsShown = false
 
- catchEvent () {
-   console.log('clicked')
+ catchEvent (event) {
+   const events = {
+     Edit: () => { this.clientDetailsEditable = true },
+     'Remove visit': () => console.log('Remove', this.currentVisit)
+   }
+
+   events[event]()
+ }
+
+ showVisitDetails (visit) {
+   this.currentVisit = visit
+   this.isVisitDetailsShown = true
  }
 }
 </script>
@@ -66,8 +78,13 @@ export default class AppInfoVisits extends Vue {
 @import '../assets/scss/mixins.scss';
 
 .list-item {
+  cursor: pointer;
   list-style: none;
   @include list-item;
+}
+
+.sub-menu-btn {
+  @include sub-menu-btn;
 }
 
 .nav-arrow {

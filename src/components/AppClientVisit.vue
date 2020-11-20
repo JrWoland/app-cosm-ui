@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AppLashesDetails />
+    <AppLashesDetails :visit="visit" :isEditable="isEditable"/>
   </div>
 </template>
 
@@ -10,7 +10,16 @@ import AppLashesDetails from './AppLashesDetails.vue'
 
 @Options({
   name: 'AppClientVisit',
-  components: { AppLashesDetails }
+  components: { AppLashesDetails },
+  props: {
+    visit: {
+      type: Object
+    },
+    isEditable: {
+      type: Boolean,
+      default: false
+    }
+  }
 })
 export default class AppClientVisit extends Vue {}
 </script>

@@ -3,22 +3,22 @@
 
      <label for="visit-date">
        <span>Data wizyty:</span>
-       <input type="date" :value="visit.date">
+       <input type="date" :value="visit.date" :disabled="!isEditable">
      </label>
 
      <label for="visit-date">
        <span>Godzina:</span>
-       <input type="time" :value="visit.time">
+       <input type="time" :value="visit.time" :disabled="!isEditable">
      </label>
 
      <label for="visit-price">
        <span>Cena:</span>
-       <input class="price" type="text" :value="visit.price">PLN
+       <input class="price" type="text" :value="visit.price" :disabled="!isEditable">PLN
      </label>
 
     <label for="visit-purpose">
       <span>Cel wizyty:</span>
-       <select name="visit-purpose" id="visit-purpose">
+       <select name="visit-purpose" id="visit-purpose" :disabled="!isEditable">
          <option value="1">Nowa aplikacja</option>
          <option value="2">Usunięcie rzęs</option>
          <option value="3">Uzupełnienie rzęs</option>
@@ -27,12 +27,12 @@
 
      <label for="visit-glue">
        <span>Klej:</span>
-       <input type="text" :value="visit.glue">
+       <input type="text" :value="visit.glue" :disabled="!isEditable">
      </label>
 
      <label for="visit-remover">
        <span>Remover:</span>
-       <input type="text" :value="visit.remover">
+       <input type="text" :value="visit.remover" :disabled="!isEditable">
      </label>
 
      <label for="visit-glue">
@@ -40,6 +40,7 @@
        <AppCheckOption
         :available-options="['L','M','B','C','C+','D','D+']"
         :checked-options="visit.curve"
+        :isEditable="isEditable"
         />
      </label>
 
@@ -48,6 +49,7 @@
        <AppCheckOption
         :available-options="[0.03 ,0.05, 0.07, 1]"
         :checked-options="visit.width"
+        :isEditable="isEditable"
         />
      </label>
 
@@ -57,17 +59,22 @@
 <script>
 import { Options, Vue } from 'vue-class-component'
 import AppCheckOption from './AppCheckOption.vue'
-import { client } from '../../mock/client'
+// import { client } from '../../mock/client'
 
 @Options({
   name: 'AppLashesDetails',
-  components: { AppCheckOption }
-})
-export default class AppLashesDetails extends Vue {
-  get visit () {
-    return client.visits.find(visit => visit.id.toString() === this.$route.params.visitId.toString())
+  components: { AppCheckOption },
+  props: {
+    visit: {
+      type: Object
+    },
+    isEditable: {
+      type: Boolean,
+      default: false
+    }
   }
-}
+})
+export default class AppLashesDetails extends Vue {}
 </script>
 <style lang="scss" scoped>
 @import '../assets/scss/mixins.scss';

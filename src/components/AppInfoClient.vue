@@ -59,16 +59,7 @@ export default class AppInfoClient extends Vue {
 @import  '../assets/scss/variables.scss';
 @import  '../assets/scss/mixins.scss';
 .sub-menu-btn {
-  width: 80px;
-  margin: 0px 5px;
-  font-size: 13px;
-  padding: 5px;
-  border:  1px solid $main-color;
-
-  &--cancel {
-    background-color: white;
-    color:  $main-color
-  }
+  @include sub-menu-btn;
 }
 
 .client {
