@@ -14,15 +14,15 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import { client } from '../../mock/client'
-import AppNavSecondary from './AppNavSecondary.vue'
-import AppInfoClient from './AppInfoClient.vue'
-import AppInfoVisits from './AppInfoVisits.vue'
+import AppNavSecondary from '../components/AppNavSecondary.vue'
+import AppInfoClient from '../components/AppInfoClient.vue'
+import AppInfoVisits from '../components/AppInfoVisits.vue'
 
 @Options({
-  name: 'AppClientCard',
+  name: 'ClientCardView',
   components: { AppNavSecondary, AppInfoClient, AppInfoVisits }
 })
-export default class AppClientCard extends Vue {
+export default class ClientCardView extends Vue {
   clientDetails = client
   clientDetailsEditable = false
 

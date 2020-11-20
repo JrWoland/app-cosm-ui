@@ -1,5 +1,5 @@
-import AppClientCard from '@/components/AppClientCard.vue'
 import AppClientVisit from '@/components/AppClientVisit.vue'
+import ClientCardView from '@/views/ClientCardView.vue'
 import Clients from '@/views/Clients.vue'
 import CreateClientView from '@/views/CreateClientView.vue'
 import CreateVisitView from '@/views/CreateVisitView.vue'
@@ -39,7 +39,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/client/:clientId',
     name: 'Client',
-    component: AppClientCard,
+    component: ClientCardView,
     children: [
       {
         path: 'visit/:visitId',

@@ -6,7 +6,7 @@
 
 <script>
 import { Options, Vue } from 'vue-class-component'
-import AppLashesDetails from './AppLashesDetails'
+import AppLashesDetails from './AppLashesDetails.vue'
 
 @Options({
   name: 'AppClientVisit',

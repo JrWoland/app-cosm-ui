@@ -13,10 +13,15 @@
       </template>
 
       <template v-slot:content>
-        <router-link v-show="!isVisitDetailsShown" :to="`/client/${$route.params.clientId}/visit/${visit.id}`" v-for="(visit, index) in visits" class="list-item" :key="index">
+        <!-- <router-link v-show="!isVisitDetailsShown" :to="`/client/${$route.params.clientId}/visit/${visit.id}`" v-for="(visit, index) in visits" class="list-item" :key="index">
           {{visit.type}} <span>{{new Date(visit.date).toLocaleString()}}</span>
         </router-link>
-        <router-view v-show="isVisitDetailsShown" />
+        <router-view v-show="isVisitDetailsShown" /> -->
+        <div v-show="!isVisitDetailsShown">
+          <p v-for="(visit, index) in visits" class="list-item" :key="index">{{visit.type}} <span>{{new Date(visit.date).toLocaleString()}}</span></p>
+        </div>
+        <AppClientVisit />
+        <component :is="AppClientVisit"></component>
       </template>
 
     </AppInfoBox>
@@ -30,10 +35,11 @@ import AppInfoBox from './AppInfoBox.vue'
 import AppInfoBoxHeader from './AppInfoBoxHeader.vue'
 import AppSubMenuBtn from './AppSubMenuBtn.vue'
 import AppButton from './AppButton.vue'
+import AppClientVisit from './AppClientVisit.vue'
 
 @Options({
   name: 'AppClientsCard',
-  components: { AppInfoBox, AppInfoBoxHeader, AppSubMenuBtn, AppButton },
+  components: { AppInfoBox, AppInfoBoxHeader, AppSubMenuBtn, AppButton, AppClientVisit },
   props: {
     visits: {
       type: Array,
@@ -60,6 +66,7 @@ export default class AppInfoVisits extends Vue {
 @import '../assets/scss/mixins.scss';
 
 .list-item {
+  list-style: none;
   @include list-item;
 }
 

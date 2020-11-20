@@ -35,7 +35,7 @@ import AppSubMenuBtn from './AppSubMenuBtn.vue'
 import AppButton from './AppButton.vue'
 
 @Options({
-  name: 'AppClientsCard',
+  name: 'AppInfoClient',
   components: { AppInfoBox, AppInfoBoxHeader, AppSubMenuBtn, AppButton },
   props: {
     client: {
