@@ -20,14 +20,14 @@
 import AppButton from '../components/AppButton.vue'
 import { Options, Vue } from 'vue-class-component'
 import { clientList } from '../../mock/client'
-import IClient from '../interfaces/IClient'
+import Client from '../interfaces/Client'
 
 @Options({
   name: 'Clients',
   components: { AppButton }
 })
 export default class Clients extends Vue {
-  public clientsList: Array<IClient> = [];
+  public clientsList: Array<Client> = [];
 
   async created () {
     this.clientsList = clientList

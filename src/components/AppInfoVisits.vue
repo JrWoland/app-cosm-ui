@@ -10,8 +10,8 @@
           <span v-show="isVisitDetailsShown" @click="showVisitsList"><i  class="fas fa-arrow-left nav-arrow"></i></span>
           <AppSubMenuBtn v-show="!clientDetailsEditable && isVisitDetailsShown" @item-menu-clicked="catchEvent" :items="['Edit', 'Remove visit']"/>
           <div v-show="clientDetailsEditable">
-            <AppButton class= "sub-menu-btn sub-menu-btn--cancel" @click="clientDetailsEditable = false">Cancel</AppButton>
-            <AppButton class="sub-menu-btn" >Save</AppButton>
+            <AppButton class= "sub-menu-btn sub-menu-btn--cancel" @click="onCancel">Cancel</AppButton>
+            <AppButton class="sub-menu-btn"  @click="onSave">Save</AppButton>
           </div>
         </AppInfoBoxHeader>
       </template>
@@ -19,7 +19,8 @@
       <template v-slot:content>
         <div v-show="!isVisitDetailsShown">
           <p v-for="(visit, index) in visits" class="list-item" :key="index" @click="showVisitDetails(visit)">
-            {{visit.type}} <span>{{new Date(visit.date).toLocaleString()}}</span></p>
+            {{visit.type}} <span>{{new Date(visit.date).toLocaleString()}}</span>
+          </p>
         </div>
         <AppClientVisit v-if="isVisitDetailsShown" :visit="currentVisit" :isEditable="clientDetailsEditable"/>
       </template>
@@ -62,7 +63,6 @@ export default class AppInfoVisits extends Vue {
      Edit: () => { this.clientDetailsEditable = true },
      'Remove visit': () => console.log('Remove', this.currentVisit)
    }
-
    events[event]()
  }
 
@@ -75,6 +75,14 @@ export default class AppInfoVisits extends Vue {
    this.currentVisit = {}
    this.isVisitDetailsShown = false
    this.clientDetailsEditable = false
+ }
+
+ onCancel () {
+   this.clientDetailsEditable = false
+ }
+
+ onSave () {
+   console.log('save')
  }
 }
 </script>
