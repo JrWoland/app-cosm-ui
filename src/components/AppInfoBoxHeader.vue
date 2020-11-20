@@ -18,6 +18,9 @@ export default class AppInfoBoxHeader extends Vue {}
 <style lang="scss" scoped>
 @import  '../assets/scss/variables.scss';
 .info-box-header {
+  position: sticky;
+  background-color: inherit;
+  top: $nav-bar-height;
   display: flex;
   justify-content: space-between;
   width: 100%;

@@ -25,5 +25,6 @@ export default class AppNavSecondary extends Vue {}
   text-align: left;
   box-shadow: $main-box-shadow;
   padding: 0px 10px;
+  z-index: 1;
 }
 </style>

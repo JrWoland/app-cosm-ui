@@ -53,13 +53,17 @@
         />
      </label>
 
+    <span>Notatki:</span>
+      <label for="visit-notes">
+        <textarea cols="30" rows="10" :disabled="!isEditable" :value="visit.notes"></textarea>
+      </label>
+
   </form>
 </template>
 
 <script>
 import { Options, Vue } from 'vue-class-component'
 import AppCheckOption from './AppCheckOption.vue'
-// import { client } from '../../mock/client'
 
 @Options({
   name: 'AppLashesDetails',

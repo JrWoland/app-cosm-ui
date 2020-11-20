@@ -7,7 +7,7 @@
       <template v-slot:header>
         <AppInfoBoxHeader>
           <router-link to="/create-visit" v-show="!isVisitDetailsShown"><i  class="fas fa-plus nav-arrow"></i></router-link>
-          <span v-show="isVisitDetailsShown" @click="() => isVisitDetailsShown=false"><i  class="fas fa-arrow-left nav-arrow"></i></span>
+          <span v-show="isVisitDetailsShown" @click="showVisitsList"><i  class="fas fa-arrow-left nav-arrow"></i></span>
           <AppSubMenuBtn v-show="!clientDetailsEditable && isVisitDetailsShown" @item-menu-clicked="catchEvent" :items="['Edit', 'Remove visit']"/>
           <div v-show="clientDetailsEditable">
             <AppButton class= "sub-menu-btn sub-menu-btn--cancel" @click="clientDetailsEditable = false">Cancel</AppButton>
@@ -69,6 +69,12 @@ export default class AppInfoVisits extends Vue {
  showVisitDetails (visit) {
    this.currentVisit = visit
    this.isVisitDetailsShown = true
+ }
+
+ showVisitsList () {
+   this.currentVisit = {}
+   this.isVisitDetailsShown = false
+   this.clientDetailsEditable = false
  }
 }
 </script>
