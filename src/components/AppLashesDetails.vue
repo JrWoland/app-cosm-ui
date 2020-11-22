@@ -18,10 +18,10 @@
 
     <label for="visit-purpose">
       <span>Cel wizyty:</span>
-       <select name="visit-purpose" id="visit-purpose" :disabled="!isEditable">
-         <option value="1">Nowa aplikacja</option>
-         <option value="2">Usunięcie rzęs</option>
-         <option value="3">Uzupełnienie rzęs</option>
+       <select name="visit-purpose" id="visit-purpose" v-model="visit.purpose" :disabled="!isEditable">
+         <option>Nowa aplikacja</option>
+         <option>Usunięcie rzęs</option>
+         <option>Uzupełnienie rzęs</option>
        </select>
      </label>
 
