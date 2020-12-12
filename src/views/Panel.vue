@@ -3,7 +3,7 @@
     <AppNavSecondary>
       <router-link class="panel__link" to="/panel"><i class="fas fa-home"></i></router-link>
       <router-link class="panel__link" to="/clients"><i class="fas fa-users"></i></router-link>
-      <button @click="getProducts" class="panel__link" to="/clients"><i class="fas fa-plus"></i></button>
+      <button @click="getProducts" class="panel__link"><i class="fas fa-plus"></i></button>
     </AppNavSecondary>
 
     <router-view />
@@ -14,19 +14,13 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import AppNavSecondary from '../components/AppNavSecondary.vue'
-import CosmApi from '../api/CosmApi'
 
 @Options({
   name: 'Panel',
   components: { AppNavSecondary }
 })
 
-export default class Panel extends Vue {
-  async getProducts () {
-    const response = await CosmApi.getOrders()
-    console.log(response)
-  }
-}
+export default class Panel extends Vue {}
 </script>
 
 <style lang="scss" scoped>

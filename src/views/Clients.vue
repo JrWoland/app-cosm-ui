@@ -4,9 +4,9 @@
       v-for="(client, index) in clientsList"
       :key="index"
       class="clients-list__item"
-      :to="`/client/${client.id}`"
+      :to="`/client/${client._id}`"
     >
-      <span>{{ client.name }}</span>
+      <span>{{ client.name }} {{client.surname}}</span>
       <span>{{ client.phone }}</span>
     </router-link>
 
@@ -19,8 +19,8 @@
 <script lang="ts">
 import AppButton from '../components/AppButton.vue'
 import { Options, Vue } from 'vue-class-component'
-import { clientList } from '../../mock/client'
-import Client from '../interfaces/Client'
+import Client from '@/interfaces/Client'
+import CosmApi from '@/api/CosmApi'
 
 @Options({
   name: 'Clients',
@@ -30,7 +30,8 @@ export default class Clients extends Vue {
   public clientsList: Array<Client> = [];
 
   async created () {
-    this.clientsList = clientList
+    const clients: Array<Client> = await CosmApi.getClients()
+    this.clientsList = clients
   }
 
   private goToClientCreateForm () {

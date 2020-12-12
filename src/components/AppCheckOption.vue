@@ -17,6 +17,7 @@ import { Options, Vue } from 'vue-class-component'
 
 @Options({
   name: 'AppCheckOption',
+  emits: ['list-updated'],
   props: {
     availableOptions: {
       type: Array,
@@ -39,8 +40,10 @@ export default class AppCheckOption extends Vue {
     if (!this.isEditable) return
     if (!this.checkedList.includes(option)) {
       this.checkedList.push(option)
+      this.$emit('list-updated', this.checkedList)
     } else {
       this.checkedList = this.checkedList.filter(item => item !== option)
+      this.$emit('list-updated', this.checkedList)
     }
   }
 }

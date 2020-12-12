@@ -9,7 +9,7 @@
           <div></div>
           <div v-show="clientDetailsEditable">
             <AppButton class= "sub-menu-btn sub-menu-btn--cancel" @click="clientDetailsEditable = false">Cancel</AppButton>
-            <AppButton class="sub-menu-btn" >Save</AppButton>
+            <AppButton class="sub-menu-btn" @click="updateClient">Save</AppButton>
           </div>
           <AppSubMenuBtn v-show="!clientDetailsEditable" @item-menu-clicked="catchEvent" :items="['Edit']"/>
         </AppInfoBoxHeader>
@@ -17,9 +17,10 @@
 
       <template v-slot:content>
         <form class="app-form">
+          <label><span>Imię</span><input type="text" v-model="client.name" :disabled="!clientDetailsEditable"></label>
+          <label><span>Nazwisko</span><input type="text" v-model="client.surname" :disabled="!clientDetailsEditable"></label>
           <label><span>Wiek</span><input type="text" v-model="client.age" :disabled="!clientDetailsEditable"></label>
           <label><span>Telefon</span><input type="text" v-model="client.phone" :disabled="!clientDetailsEditable"></label>
-          <label><span>Nast. wizyta</span><input type="datetime-local" v-model="client.nextVisit" disabled></label>
         </form>
       </template>
     </AppInfoBox>
@@ -33,6 +34,7 @@ import AppInfoBox from './AppInfoBox.vue'
 import AppInfoBoxHeader from './AppInfoBoxHeader.vue'
 import AppSubMenuBtn from './AppSubMenuBtn.vue'
 import AppButton from './AppButton.vue'
+import CosmApi from '@/api/CosmApi'
 
 @Options({
   name: 'AppInfoClient',
@@ -51,6 +53,15 @@ export default class AppInfoClient extends Vue {
         Edit: () => { this.clientDetailsEditable = true }
       }
       events[type]()
+    }
+
+    async updateClient () {
+      const { clientId } = this.$route.params
+      const { name, surname, age, phone } = { ...this.client }
+      const newData = { name, surname, age, phone }
+      await CosmApi.updateClient(clientId, newData)
+      this.clientDetailsEditable = false
+      debugger
     }
 }
 </script>

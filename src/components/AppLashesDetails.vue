@@ -3,17 +3,17 @@
 
      <label for="visit-date">
        <span>Data wizyty:</span>
-       <input type="date" :value="visit.date" :disabled="!isEditable">
+       <input type="date" v-model="visit.date" :disabled="!isEditable">
      </label>
 
      <label for="visit-date">
        <span>Godzina:</span>
-       <input type="time" :value="visit.time" :disabled="!isEditable">
+       <input type="time" v-model="visit.time" :disabled="!isEditable">
      </label>
 
      <label for="visit-price">
        <span>Cena:</span>
-       <input class="price" type="text" :value="visit.price" :disabled="!isEditable">PLN
+       <input class="price" type="text" v-model="visit.price" :disabled="!isEditable">PLN
      </label>
 
     <label for="visit-purpose">
@@ -27,12 +27,12 @@
 
      <label for="visit-glue">
        <span>Klej:</span>
-       <input type="text" :value="visit.glue" :disabled="!isEditable">
+       <input type="text" v-model="visit.glue" :disabled="!isEditable">
      </label>
 
      <label for="visit-remover">
        <span>Remover:</span>
-       <input type="text" :value="visit.remover" :disabled="!isEditable">
+       <input type="text" v-model="visit.remover" :disabled="!isEditable">
      </label>
 
      <label for="visit-glue">
@@ -41,21 +41,23 @@
         :available-options="['L','M','B','C','C+','D','D+']"
         :checked-options="visit.curve"
         :isEditable="isEditable"
+         @list-updated="(newList) => visit.curve = newList"
         />
      </label>
 
      <label for="visit-glue">
        <span>Grubość:</span>
        <AppCheckOption
-        :available-options="[0.03 ,0.05, 0.07, 1]"
+        :available-options="[0.03 ,0.05, 0.07, 0.1]"
         :checked-options="visit.width"
         :isEditable="isEditable"
+        @list-updated="(newList) => visit.width = newList"
         />
      </label>
 
     <span>Notatki:</span>
       <label for="visit-notes">
-        <textarea cols="30" rows="10" :disabled="!isEditable" :value="visit.notes"></textarea>
+        <textarea cols="30" rows="10" :disabled="!isEditable" v-model="visit.notes"></textarea>
       </label>
 
   </form>

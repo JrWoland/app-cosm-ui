@@ -17,9 +17,9 @@
       </template>
 
       <template v-slot:content>
-        <div v-show="!isVisitDetailsShown">
-          <p v-for="(visit, index) in visits" class="list-item" :key="index" @click="showVisitDetails(visit)">
-            {{visit.type}} <span>{{new Date(visit.date).toLocaleString()}}</span>
+        <div v-if="!isVisitDetailsShown">
+          <p v-for="(visit, index) in visitsList" class="list-item" :key="index" @click="showVisitDetails(visit._id)">
+            {{visit.type}} <span>{{new Date(visit.date).toLocaleDateString()}}</span>
           </p>
         </div>
         <AppClientVisit v-if="isVisitDetailsShown" :visit="currentVisit" :isEditable="clientDetailsEditable"/>
@@ -31,32 +31,28 @@
 
 <script>
 import { Options, Vue } from 'vue-class-component'
-
+import * as dayjs from 'dayjs'
 import AppInfoBox from './AppInfoBox.vue'
 import AppInfoBoxHeader from './AppInfoBoxHeader.vue'
 import AppSubMenuBtn from './AppSubMenuBtn.vue'
 import AppButton from './AppButton.vue'
 import AppClientVisit from './AppClientVisit.vue'
+import CosmApi from '@/api/CosmApi'
 
 @Options({
   name: 'AppClientsCard',
-  components: { AppInfoBox, AppInfoBoxHeader, AppSubMenuBtn, AppButton, AppClientVisit },
-  props: {
-    visits: {
-      type: Array,
-      default: () => []
-    }
-  },
-  computed: {
-    visit () {
-      return this.visits[0]
-    }
-  }
+  components: { AppInfoBox, AppInfoBoxHeader, AppSubMenuBtn, AppButton, AppClientVisit }
 })
 export default class AppInfoVisits extends Vue {
  clientDetailsEditable = false
+ visitsList = []
  currentVisit = {}
+ visitBeforeUpdate = {}
  isVisitDetailsShown = false
+
+ created () {
+   this.getVisitsList()
+ }
 
  catchEvent (event) {
    const events = {
@@ -66,23 +62,36 @@ export default class AppInfoVisits extends Vue {
    events[event]()
  }
 
- showVisitDetails (visit) {
-   this.currentVisit = visit
+ async showVisitDetails (visitId) {
+   const { clientId } = this.$route.params
+   this.currentVisit = await CosmApi.getVisit(clientId, visitId)
+   this.currentVisit.date = dayjs(this.currentVisit.date).format('YYYY-MM-DD')
+   this.visitBeforeUpdate = JSON.stringify(this.currentVisit)
    this.isVisitDetailsShown = true
  }
 
- showVisitsList () {
+ async showVisitsList () {
+   await this.getVisitsList()
    this.currentVisit = {}
    this.isVisitDetailsShown = false
    this.clientDetailsEditable = false
  }
 
  onCancel () {
+   this.currentVisit = JSON.parse(this.visitBeforeUpdate)
    this.clientDetailsEditable = false
  }
 
- onSave () {
-   console.log('save')
+ async onSave () {
+   console.log(this.currentVisit, 'CURRENT')
+   const { clientId } = this.$route.params
+   await CosmApi.updateVisit(clientId, this.currentVisit._id, this.currentVisit)
+   this.clientDetailsEditable = false
+ }
+
+ async getVisitsList () {
+   const { clientId } = this.$route.params
+   this.visitsList = await CosmApi.getVisitsList(clientId)
  }
 }
 </script>
