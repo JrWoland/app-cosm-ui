@@ -1,9 +1,8 @@
 <template>
   <div class="panel">
     <AppNavSecondary>
-      <router-link class="panel__link" to="/panel"><i class="fas fa-home"></i></router-link>
+      <!-- <router-link class="panel__link" to="/panel"><i class="fas fa-home"></i></router-link> -->
       <router-link class="panel__link" to="/clients"><i class="fas fa-users"></i></router-link>
-      <button @click="getProducts" class="panel__link"><i class="fas fa-plus"></i></button>
     </AppNavSecondary>
 
     <router-view />

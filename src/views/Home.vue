@@ -27,7 +27,7 @@ export default class Home extends Vue {
       await store.dispatch('login', { email: this.email, password: this.password })
       this.$router.push({ path: '/clients' })
     } catch (error) {
-      console.log(error, 'FAILED LOGIN')
+      alert('LOGIN ERROR')
     }
   }
 }

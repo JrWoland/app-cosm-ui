@@ -57,7 +57,7 @@ export default class AppInfoVisits extends Vue {
  catchEvent (event) {
    const events = {
      Edit: () => { this.clientDetailsEditable = true },
-     'Remove visit': () => console.log('Remove', this.currentVisit)
+     'Remove visit': () => this.removeVisit(this.currentVisit._id)
    }
    events[event]()
  }
@@ -83,7 +83,6 @@ export default class AppInfoVisits extends Vue {
  }
 
  async onSave () {
-   console.log(this.currentVisit, 'CURRENT')
    const { clientId } = this.$route.params
    await CosmApi.updateVisit(clientId, this.currentVisit._id, this.currentVisit)
    this.clientDetailsEditable = false
@@ -92,6 +91,12 @@ export default class AppInfoVisits extends Vue {
  async getVisitsList () {
    const { clientId } = this.$route.params
    this.visitsList = await CosmApi.getVisitsList(clientId)
+ }
+
+ async removeVisit (visitId) {
+   const { clientId } = this.$route.params
+   await CosmApi.removeVisit(clientId, visitId)
+   this.showVisitsList()
  }
 }
 </script>

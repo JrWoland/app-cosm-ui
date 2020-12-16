@@ -19,9 +19,7 @@
     <label for="visit-purpose">
       <span>Cel wizyty:</span>
        <select name="visit-purpose" id="visit-purpose" v-model="visit.purpose" :disabled="!isEditable">
-         <option>Nowa aplikacja</option>
-         <option>Usunięcie rzęs</option>
-         <option>Uzupełnienie rzęs</option>
+         <option class="add-visit__option" v-for="purpose in visitPurposes" :value="purpose.value" :key="purpose.value">{{purpose['pl-PL']}}</option>
        </select>
      </label>
 
@@ -66,6 +64,7 @@
 <script>
 import { Options, Vue } from 'vue-class-component'
 import AppCheckOption from './AppCheckOption.vue'
+import { visitPurposes } from '@/assets/ts/visitsPurpose'
 
 @Options({
   name: 'AppLashesDetails',
@@ -80,7 +79,9 @@ import AppCheckOption from './AppCheckOption.vue'
     }
   }
 })
-export default class AppLashesDetails extends Vue {}
+export default class AppLashesDetails extends Vue {
+  visitPurposes = visitPurposes
+}
 </script>
 <style lang="scss" scoped>
 @import '../assets/scss/mixins.scss';

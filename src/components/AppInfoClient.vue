@@ -61,7 +61,6 @@ export default class AppInfoClient extends Vue {
       const newData = { name, surname, age, phone }
       await CosmApi.updateClient(clientId, newData)
       this.clientDetailsEditable = false
-      debugger
     }
 }
 </script>

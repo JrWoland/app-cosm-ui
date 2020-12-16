@@ -19,7 +19,6 @@ const state: AuthState = {
 const getters: GetterTree<AuthState, any> = {
 
   loggedIn (state) {
-    console.log('getter logged in')
     return !!state.user.token
   }
 }

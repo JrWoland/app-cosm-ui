@@ -3,17 +3,21 @@
   <form class="add-visit" >
     <label class="add-visit__label" for="firstName">
       <span class="add-visit__label-title">Klient</span>
-      <select class="add-visit__input" v-model="selectedClient">
-        <option class="add-visit__option" v-for="client in clientList" :value="client.id" :key="client.id">{{client.name}}</option>
+      <select class="add-visit__input" v-model="selectedClientId">
+        <option class="add-visit__option" v-for="client in clientList" :value="client._id" :key="client.id">{{client.name}}</option>
       </select>
       <span class="add-visit__label-title">Rodzaj wizyty</span>
-      <select class="add-visit__input">
+      <select class="add-visit__input" v-model="selectedVisitType">
         <option class="add-visit__option" v-for="visit in visitTypes" :value="visit.value" :key="visit.value">{{visit['pl-PL']}}</option>
       </select>
+      <span class="add-visit__label-title">Typ wizyty</span>
+      <select class="add-visit__input" v-model="selectedVisitPurpose">
+        <option class="add-visit__option" v-for="purpose in visitPurposes" :value="purpose.value" :key="purpose.value">{{purpose['pl-PL']}}</option>
+      </select>
       <span class="add-visit__label-title">Data</span>
-      <input class="add-visit__input" type="date"/>
+      <input class="add-visit__input" type="date" v-model="date"/>
       <span class="add-visit__label-title">Godzina</span>
-      <input class="add-visit__input" type="time" step="60"/>
+      <input class="add-visit__input" type="time" step="60 " v-model="time"/>
     </label>
     <AppButton class="add-visit__save-btn" :animate="false" @click="createVisit">
       Dodaj wizytę
@@ -24,11 +28,13 @@
 
 </template>
 
-<script>
+<script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import AppButton from '@/components/AppButton.vue'
 import { visitTypes } from '@/assets/ts/visitsTypes'
-import { clientList } from '../../mock/client'
+import { visitPurposes } from '@/assets/ts/visitsPurpose'
+import Client from '@/interfaces/Client'
+import CosmApi from '@/api/CosmApi'
 
 @Options({
   name: 'CreateVisitView',
@@ -36,14 +42,27 @@ import { clientList } from '../../mock/client'
 })
 export default class CreateVisitView extends Vue {
   visitTypes = visitTypes;
-  selectedClient = 'asd';
-  clientList = clientList
+  visitPurposes = visitPurposes;
+  selectedClientId = '';
+  selectedVisitType = '';
+  selectedVisitPurpose = '';
+  date = '';
+  time = ''
+  clientList: Array<Client> = [];
 
-  mounted () {
-    this.selectedClient = this.$router.options.history.state.back.split('/').pop()
+  async mounted () {
+    this.clientList = await CosmApi.getClients()
+    this.selectedClientId = this.$router.options.history.state.back.split('/').pop()
   }
 
-  createVisit () {
+  async createVisit () {
+    const visit = {
+      date: this.date,
+      time: this.time,
+      type: this.selectedVisitType,
+      purpose: this.selectedVisitPurpose
+    }
+    await CosmApi.addVisit(this.selectedClientId, visit)
     this.$router.back()
   }
 }
@@ -69,7 +88,7 @@ export default class CreateVisitView extends Vue {
   }
 
   &__option {
-    color: #ddd;
+    color: rgb(107, 107, 107);
   }
 
   &__input {

@@ -48,8 +48,18 @@ class CosmApi {
     return result.data
   }
 
+  async addVisit (clientId: string | string[], data: any) {
+    const result = await $http.post(`/account/client/${clientId}/visit`, data)
+    return result.data
+  }
+
   async updateVisit (clientId: string | string[], visitId: string | string[], data: any) {
     const result = await $http.patch(`/account/client/${clientId}/visit/${visitId}`, data)
+    return result.data
+  }
+
+  async removeVisit (clientId: string | string[], visitId: string | string[]) {
+    const result = await $http.delete(`/account/client/${clientId}/visit/${visitId}`)
     return result.data
   }
 }
