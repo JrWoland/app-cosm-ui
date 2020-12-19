@@ -24,9 +24,6 @@ export default class AppButton extends Vue {
     if (!this.animate) return
     e.target.classList.remove('animate')
     e.target.classList.add('animate')
-    setTimeout(function () {
-      e.target.classList.remove('animate')
-    }, 700)
   }
 }
 </script>

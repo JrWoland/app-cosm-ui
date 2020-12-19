@@ -4,7 +4,7 @@
     <label class="add-visit__label" for="firstName">
       <span class="add-visit__label-title">Klient</span>
       <select class="add-visit__input" v-model="selectedClientId">
-        <option class="add-visit__option" v-for="client in clientList" :value="client._id" :key="client.id">{{client.name}}</option>
+        <option class="add-visit__option" v-for="client in clientList" :value="client._id" :key="client.id">{{client.name}} {{client.surname}}</option>
       </select>
       <span class="add-visit__label-title">Rodzaj wizyty</span>
       <select class="add-visit__input" v-model="selectedVisitType">
@@ -52,7 +52,7 @@ export default class CreateVisitView extends Vue {
 
   async mounted () {
     this.clientList = await CosmApi.getClients()
-    this.selectedClientId = this.$router.options.history.state.back.split('/').pop()
+    this.selectedClientId = window.history.state.clientId
   }
 
   async createVisit () {

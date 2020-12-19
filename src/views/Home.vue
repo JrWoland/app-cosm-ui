@@ -1,9 +1,9 @@
 <template>
   <div class="home">
     <form @submit.prevent="login">
-      <label for="email" name="email">Email: <input v-model="email" type="email" name="email"></label>
-      <label for="email" name="password">Password: <input v-model="password" type="password" name="password"></label>
-      <AppButton @click="login">Login</AppButton>
+      <label for="email" name="email"><span>Email </span><input v-model="email" type="email" name="email"></label>
+      <label for="email" name="password"><span>Password </span><input v-model="password" type="password" name="password"></label>
+      <AppButton class="login-btn" @click="login">Login</AppButton>
     </form>
   </div>
 </template>
@@ -34,6 +34,7 @@ export default class Home extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import  '../assets/scss/mixins.scss';
 .home {
   display: flex;
   justify-content: center;
@@ -41,6 +42,9 @@ export default class Home extends Vue {
   flex-direction: row;
   height: 100vh;
   form {
+    @include app-form;
+    width: 95%;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
   }
@@ -52,6 +56,10 @@ export default class Home extends Vue {
     padding: 15px;
     color: white;
     border-radius: 5px;
+  }
+
+  .login-btn {
+    padding: 10px;
   }
 }
 </style>

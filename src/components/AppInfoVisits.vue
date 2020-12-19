@@ -6,12 +6,12 @@
   <AppInfoBox>
       <template v-slot:header>
         <AppInfoBoxHeader>
-          <router-link to="/create-visit" v-show="!isVisitDetailsShown"><i  class="fas fa-plus nav-arrow"></i></router-link>
+          <span @click="createVisit" v-show="!isVisitDetailsShown"><i  class="fas fa-plus nav-arrow"></i></span>
           <span v-show="isVisitDetailsShown" @click="showVisitsList"><i  class="fas fa-arrow-left nav-arrow"></i></span>
           <AppSubMenuBtn v-show="!clientDetailsEditable && isVisitDetailsShown" @item-menu-clicked="catchEvent" :items="['Edit', 'Remove visit']"/>
           <div v-show="clientDetailsEditable">
             <AppButton class= "sub-menu-btn sub-menu-btn--cancel" @click="onCancel">Cancel</AppButton>
-            <AppButton class="sub-menu-btn"  @click="onSave">Save</AppButton>
+            <AppButton class="sub-menu-btn"  @click="onUpdate">Save</AppButton>
           </div>
         </AppInfoBoxHeader>
       </template>
@@ -82,8 +82,9 @@ export default class AppInfoVisits extends Vue {
    this.clientDetailsEditable = false
  }
 
- async onSave () {
+ async onUpdate () {
    const { clientId } = this.$route.params
+   console.log(this.currentVisit)
    await CosmApi.updateVisit(clientId, this.currentVisit._id, this.currentVisit)
    this.clientDetailsEditable = false
  }
@@ -97,6 +98,14 @@ export default class AppInfoVisits extends Vue {
    const { clientId } = this.$route.params
    await CosmApi.removeVisit(clientId, visitId)
    this.showVisitsList()
+ }
+
+ createVisit () {
+   this.$router.push({
+     path: '/create-visit',
+     name: 'Create visit',
+     state: { clientId: this.$route.params.clientId }
+   })
  }
 }
 </script>

@@ -2,39 +2,39 @@
   <form class="visit-details app-form">
 
      <label for="visit-date">
-       <span>Data wizyty:</span>
+       <span>Data wizyty</span>
        <input type="date" v-model="visit.date" :disabled="!isEditable">
      </label>
 
      <label for="visit-date">
-       <span>Godzina:</span>
+       <span>Godzina</span>
        <input type="time" v-model="visit.time" :disabled="!isEditable">
      </label>
 
      <label for="visit-price">
-       <span>Cena:</span>
-       <input class="price" type="text" v-model="visit.price" :disabled="!isEditable">PLN
+       <span>Cena</span>
+       <input class="price" type="number" v-model="visit.price" :disabled="!isEditable">PLN
      </label>
 
     <label for="visit-purpose">
-      <span>Cel wizyty:</span>
+      <span>Cel wizyty</span>
        <select name="visit-purpose" id="visit-purpose" v-model="visit.purpose" :disabled="!isEditable">
          <option class="add-visit__option" v-for="purpose in visitPurposes" :value="purpose.value" :key="purpose.value">{{purpose['pl-PL']}}</option>
        </select>
      </label>
 
      <label for="visit-glue">
-       <span>Klej:</span>
+       <span>Klej</span>
        <input type="text" v-model="visit.glue" :disabled="!isEditable">
      </label>
 
      <label for="visit-remover">
-       <span>Remover:</span>
+       <span>Remover</span>
        <input type="text" v-model="visit.remover" :disabled="!isEditable">
      </label>
 
-     <label for="visit-glue">
-       <span>Skręt:</span>
+     <label>
+       <span>Skręt</span>
        <AppCheckOption
         :available-options="['L','M','B','C','C+','D','D+']"
         :checked-options="visit.curve"
@@ -43,13 +43,34 @@
         />
      </label>
 
-     <label for="visit-glue">
-       <span>Grubość:</span>
+     <label>
+       <span>Grubość</span>
        <AppCheckOption
         :available-options="[0.03 ,0.05, 0.07, 0.1]"
         :checked-options="visit.width"
         :isEditable="isEditable"
         @list-updated="(newList) => visit.width = newList"
+        />
+     </label>
+
+     <label>
+       <span>Długość</span>
+       <AppCheckOption
+        :available-options="[4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]"
+        :checked-options="visit.length"
+        :isEditable="isEditable"
+        @list-updated="(newList) => visit.length = newList"
+        />
+     </label>
+
+     <label>
+       <span>Modelowanie</span>
+       <AppCheckOption
+        :isDynamic="true"
+        :available-options="visit.length"
+        :checked-options="visit.modeling"
+        :isEditable="isEditable"
+        @list-updated="(newList) => visit.modeling = newList"
         />
      </label>
 
@@ -81,6 +102,7 @@ import { visitPurposes } from '@/assets/ts/visitsPurpose'
 })
 export default class AppLashesDetails extends Vue {
   visitPurposes = visitPurposes
+  dynamicOptions = []
 }
 </script>
 <style lang="scss" scoped>
