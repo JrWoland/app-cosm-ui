@@ -10,6 +10,7 @@
       {{ option }}
     </span>
   </div>
+
   <div class="dynamic" v-else>
     <select
       class="selectable-item-dynamic"
@@ -20,6 +21,7 @@
       name="length"
       id="length"
       :key="index"
+      :disabled="!isEditable"
     >
       <option v-for="option in availableOptions" :value="option" :key="option">
         {{ option }}
@@ -101,7 +103,7 @@ export default class AppCheckOption extends Vue {
     border-radius: 50px;
     color: white;
     background-color: rgb(199, 199, 199);
-    width: 120px;
+    width: 80px;
     height:30px;
     font-size: 20px;
     &.editable {

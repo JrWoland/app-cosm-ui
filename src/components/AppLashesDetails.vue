@@ -34,6 +34,16 @@
      </label>
 
      <label>
+       <span>Metoda</span>
+       <AppCheckOption
+        :available-options="['2d', '3d', '4/6d','5/8d', 'MV']"
+        :checked-options="visit.method"
+        :isEditable="isEditable"
+         @list-updated="(newList) => visit.method = newList"
+        />
+     </label>
+
+     <label>
        <span>Skręt</span>
        <AppCheckOption
         :available-options="['L','M','B','C','C+','D','D+']"
@@ -46,7 +56,7 @@
      <label>
        <span>Grubość</span>
        <AppCheckOption
-        :available-options="[0.03 ,0.05, 0.07, 0.1]"
+        :available-options="[0.03 , 0.05, 0.07, 0.1]"
         :checked-options="visit.width"
         :isEditable="isEditable"
         @list-updated="(newList) => visit.width = newList"
@@ -63,11 +73,11 @@
         />
      </label>
 
-     <label>
+     <label class="modeling-layout">
        <span>Modelowanie</span>
        <AppCheckOption
         :isDynamic="true"
-        :available-options="visit.length"
+        :available-options="modelingOptions"
         :checked-options="visit.modeling"
         :isEditable="isEditable"
         @list-updated="(newList) => visit.modeling = newList"
@@ -102,13 +112,22 @@ import { visitPurposes } from '@/assets/ts/visitsPurpose'
 })
 export default class AppLashesDetails extends Vue {
   visitPurposes = visitPurposes
-  dynamicOptions = []
+
+  get modelingOptions () {
+    return this.visit.length.map(item => {
+      return this.visit.width.map(i => item.toString() + '/' + i.toString())
+    }).flat()
+  }
 }
 </script>
 <style lang="scss" scoped>
 @import '../assets/scss/mixins.scss';
 .app-form {
   @include app-form;
+
+  .modeling-layout {
+    flex-direction: column;
+  }
   .price {
     width: 60px;
   }
