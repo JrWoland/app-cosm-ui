@@ -10,6 +10,17 @@
     border-radius: $main-border-radius;
 }
 
+@mixin search-input {
+  width: 100%;
+  outline: none;
+  padding: 5px 10px;
+  color: $font-color;
+  font-size: 13px;
+  font-family: $main-font-family;
+  border: 1px solid $font-color;
+  border-radius: 5px;
+}
+
 @mixin  app-form {
   width: 100%;
   min-height: 100px;
@@ -34,7 +45,6 @@
      textarea {
        width: 100%;
        outline: none;
-       color: $font-color;
        padding: 5px 10px;
        color: $main-color;
        font-size: 13px;

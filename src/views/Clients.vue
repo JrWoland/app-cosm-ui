@@ -1,12 +1,13 @@
 <template>
   <div class="clients-list">
+    <input type="text" class="clients-list__search" v-model="searchClient" placeholder="Szukaj klienta">
     <router-link
-      v-for="(client, index) in clientsList"
+      v-for="(client, index) in clientListToDisplay"
       :key="index"
       class="clients-list__item"
       :to="`/client/${client._id}`"
     >
-      <span>{{ client.name }} {{client.surname}}</span>
+      <span>{{client.surname}} {{ client.name }}</span>
       <span>{{ client.phone }}</span>
     </router-link>
 
@@ -28,10 +29,17 @@ import CosmApi from '@/api/CosmApi'
 })
 export default class Clients extends Vue {
   public clientsList: Array<Client> = [];
+  public searchClient = '';
 
   async created () {
     const clients: Array<Client> = await CosmApi.getClients()
     this.clientsList = clients
+  }
+
+  get clientListToDisplay () {
+    return this.clientsList
+      .sort((clientA, clientB) => clientA.surname > clientB.surname ? 1 : -1)
+      .filter(({ name, surname }) => surname.toLowerCase().includes(this.searchClient.toLowerCase()) || name.toLowerCase().includes(this.searchClient.toLowerCase()))
   }
 
   private goToClientCreateForm () {
@@ -49,6 +57,10 @@ export default class Clients extends Vue {
   list-style: none;
   text-align: left;
   padding: 0px 15px;
+
+  &__search {
+    @include search-input;
+  }
 
   &__item {
     @include list-item;
