@@ -17,7 +17,7 @@ export default class AppInfoBox extends Vue {}
     width: 100%;
     min-height: 100px;
     margin-top: 5px;
-    padding: 10px;
+    padding: 5px;
     background-color: #fff;
     box-shadow: $main-box-shadow;
     border-radius: $main-border-radius;

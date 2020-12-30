@@ -36,7 +36,7 @@
      <label>
        <span>Metoda</span>
        <AppCheckOption
-        :available-options="['2d', '3d', '4/6d','5/8d', 'MV']"
+        :available-options="['2d', '2/3d', '3d', '4/6d','5/8d', 'MV']"
         :checked-options="visit.method"
         :isEditable="isEditable"
          @list-updated="(newList) => visit.method = newList"
@@ -73,8 +73,11 @@
         />
      </label>
 
-     <label class="modeling-layout">
+     <label v-if="modelingOptions.length > 0" class="modeling-layout">
        <span>Modelowanie</span>
+       <select name="lashes-modeling" id="lashes-modeling" v-model="visit.lashesModelingType" :disabled="!isEditable">
+        <option class="add-visit__option" v-for="modeling in lashesModelingTypes" :value="modeling.value" :key="modeling.value">{{modeling['pl-PL']}}</option>
+       </select>
        <AppCheckOption
         :isDynamic="true"
         :available-options="modelingOptions"
@@ -96,6 +99,7 @@
 import { Options, Vue } from 'vue-class-component'
 import AppCheckOption from './AppCheckOption.vue'
 import { visitPurposes } from '@/assets/ts/visitsPurpose'
+import { lashesModelingTypes } from '@/assets/ts/lashesModelingTypes'
 
 @Options({
   name: 'AppLashesDetails',
@@ -112,10 +116,12 @@ import { visitPurposes } from '@/assets/ts/visitsPurpose'
 })
 export default class AppLashesDetails extends Vue {
   visitPurposes = visitPurposes
+  lashesModelingTypes = lashesModelingTypes
 
   get modelingOptions () {
-    return this.visit.length.map(item => {
-      return this.visit.width.map(i => item.toString() + '/' + i.toString())
+    if (!this.visit.length.length || !this.visit.width) return []
+    return this.visit.length.map(len => {
+      return this.visit.width.map(wth => ({ width: wth, length: len }))
     }).flat()
   }
 }

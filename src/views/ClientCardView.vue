@@ -44,7 +44,7 @@ export default class ClientCardView extends Vue {
 <style lang="scss" scoped>
 @import  '../assets/scss/variables.scss';
 .client {
-  margin: $nav-bar-height 15px 0px 15px;
+  margin: $nav-bar-height 10px 0px 10px;
 
   &__nav {
   display: flex;

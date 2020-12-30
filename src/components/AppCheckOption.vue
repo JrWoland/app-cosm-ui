@@ -13,23 +13,36 @@
 
   <div class="dynamic" v-else>
     <select
-      class="selectable-item-dynamic"
-      :class="{ editable: isEditable }"
-      @click="onDynamicClick"
-      v-for="(option, index) in dynamicOptions"
+      v-for="(op, index) in dynamicOptions"
       v-model="checkedList[index]"
+      class="selectable-item-dynamic"
+      :class="{ editable: isEditable, 'is-max': isMax(checkedList[index]) }"
+      @click="onDynamicClick"
       name="length"
-      id="length"
       :key="index"
       :disabled="!isEditable"
     >
-      <option v-for="option in availableOptions" :value="option" :key="option">
-        {{ option }}
+      <option v-for="(option, index) in availableOptions" :value="option" :key="index">
+        {{ option.length }}/{{ option.width }}
       </option>
     </select>
     <div>
-      <button class="dynamic__btn" :class="{ editable: dynamicOptions !== 0  && isEditable}" @click.prevent="removeOption" :disabled="dynamicOptions === 0 || !isEditable">-</button>
-      <button class="dynamic__btn" :class="{ editable: isEditable}" @click.prevent="addOption" :disabled="!isEditable">+</button>
+      <button
+        class="dynamic__btn"
+        :class="{ editable: dynamicOptions !== 0 && isEditable }"
+        @click.prevent="removeOption"
+        :disabled="dynamicOptions === 0 || !isEditable"
+      >
+        -
+      </button>
+      <button
+        class="dynamic__btn"
+        :class="{ editable: isEditable }"
+        @click.prevent="addOption"
+        :disabled="!isEditable"
+      >
+        +
+      </button>
     </div>
   </div>
 </template>
@@ -69,7 +82,7 @@ export default class AppCheckOption extends Vue {
 
   addOption () {
     this.dynamicOptions++
-    this.checkedList.push(null)
+    this.checkedList.push(this.availableOptions[0])
     this.$emit('list-updated', this.checkedList)
   }
 
@@ -89,6 +102,11 @@ export default class AppCheckOption extends Vue {
       this.$emit('list-updated', this.checkedList)
     }
   }
+
+  isMax (option) {
+    const options = this.checkedList.map(item => item.length)
+    return option.length === Math.max(...options)
+  }
 }
 </script>
 
@@ -104,39 +122,41 @@ export default class AppCheckOption extends Vue {
     color: white;
     background-color: rgb(199, 199, 199);
     width: 80px;
-    height:30px;
+    height: 30px;
     font-size: 20px;
     &.editable {
-       background-color: rgb(255, 57, 255);
-       cursor: pointer;
-     }
+      background-color: rgb(255, 57, 255);
+      cursor: pointer;
+    }
   }
 
   .selectable-item-dynamic:first-of-type {
-    border-left: none;
+    border-left: 1px solid;
   }
-  .selectable-item-dynamic:last-child {
-    border-right: none;
+  .selectable-item-dynamic:last-of-type {
+    border-right: 1px solid;
   }
 }
 
 .selectable-item-dynamic {
+  width: 35px;
+  height: 50px;
   border: none;
-  border-right: 2px solid rgb(199, 199, 199);
-  border-left: 2px solid rgb(199, 199, 199);
+  border-left: 1px solid rgb(199, 199, 199);
   color: rgb(199, 199, 199);
-  font-size: 15px;
+  font-size: 9px;
   font-weight: 400;
   user-select: none;
-  padding: 5px;
-  margin: 1px;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
+  padding: 1px;
+  appearance: none;
+  text-align: center;
+  &.is-max {
+      font-weight:bold;
+      text-decoration: underline;
+    }
   &.editable {
     border-color: rgb(255, 57, 255);
-    color:  rgb(255, 57, 255);
+    color: rgb(255, 57, 255);
     cursor: pointer;
   }
 }
