@@ -1,8 +1,7 @@
-// import axios from 'axios'
+import CosmApi from '@/api/CosmApi'
+import $http from '@/api/HttpService'
+import Credencials from '@/interfaces/Credencials'
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
-import CosmApi from '../../api/CosmApi'
-import $http from '../../api/HttpService'
-import Credencials from '../../interfaces/Credencials'
 
 interface User {
   token: string;
