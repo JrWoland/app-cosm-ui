@@ -1,6 +1,7 @@
 <template>
   <button class="bubbly-button" @click="triggerAnimation">
-    <slot></slot>
+    <slot name="icon"></slot>
+    <slot name="text"></slot>
   </button>
 </template>
 
@@ -30,6 +31,10 @@ export default class AppButton extends Vue {
 
 <style lang="scss" scoped>
 @import  '../assets/scss/variables.scss';
+
+.btn-text {
+  font-size: 12px;
+}
 
 .bubbly-button{
   user-select: none;

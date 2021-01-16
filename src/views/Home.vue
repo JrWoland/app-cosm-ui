@@ -3,8 +3,13 @@
     <form @submit.prevent="login">
       <label for="email" name="email"><span>Email </span><input v-model="email" type="email" name="email"></label>
       <label for="email" name="password"><span>Password </span><input v-model="password" type="password" name="password"></label>
-      <AppButton class="login-btn" @click="login">Login</AppButton>
+      <AppButton class="login-btn" @click="login">
+        <template v-slot:text>
+          Login
+        </template>
+      </AppButton>
     </form>
+    <span class="app-version">api.{{version}} ui.{{require('../../package.json').version}}</span>
   </div>
 </template>
 
@@ -12,6 +17,7 @@
 
 import { Options, Vue } from 'vue-class-component'
 import AppButton from '../components/AppButton.vue'
+import CosmApi from '@/api/CosmApi'
 import store from '@/store'
 
 @Options({
@@ -21,6 +27,12 @@ import store from '@/store'
 export default class Home extends Vue {
   email = ''
   password = ''
+  version = ''
+
+  async mounted () {
+    const result = await CosmApi.getApiVersion()
+    this.version = result.version
+  }
 
   async login () {
     try {
@@ -39,7 +51,7 @@ export default class Home extends Vue {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   height: 100vh;
   form {
     @include app-form;
@@ -60,6 +72,14 @@ export default class Home extends Vue {
 
   .login-btn {
     padding: 10px;
+  }
+
+  .app-version {
+    position: absolute;
+    margin: 2px;
+    font-size: 10px;
+    bottom: 0;
+    left: 0;
   }
 }
 </style>

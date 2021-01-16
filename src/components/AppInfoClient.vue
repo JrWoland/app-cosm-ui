@@ -8,8 +8,16 @@
         <AppInfoBoxHeader>
           <div></div>
           <div v-show="clientDetailsEditable">
-            <AppButton class= "sub-menu-btn sub-menu-btn--cancel" @click="clientDetailsEditable = false">Cancel</AppButton>
-            <AppButton class="sub-menu-btn" @click="updateClient">Save</AppButton>
+            <AppButton class= "sub-menu-btn sub-menu-btn--cancel" @click="clientDetailsEditable = false">
+              <template v-slot:text>
+                <span>Anuluj</span>
+              </template>
+            </AppButton>
+            <AppButton class="sub-menu-btn" @click="updateClient">
+              <template v-slot:text>
+                Zapisz
+              </template>
+            </AppButton>
           </div>
           <AppSubMenuBtn v-show="!clientDetailsEditable" @item-menu-clicked="catchEvent" :items="['Edit']"/>
         </AppInfoBoxHeader>
