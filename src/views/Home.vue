@@ -8,12 +8,8 @@
           Login
         </template>
       </AppButton>
-      <AppButton class="login-btn" @click="test">
-        <template v-slot:text>
-          test
-        </template>
-      </AppButton>
     </form>
+    <span class="app-version">api.{{version}} ui.{{require('../../package.json').version}}</span>
   </div>
 </template>
 
@@ -21,6 +17,7 @@
 
 import { Options, Vue } from 'vue-class-component'
 import AppButton from '../components/AppButton.vue'
+import CosmApi from '@/api/CosmApi'
 import store from '@/store'
 
 @Options({
@@ -30,8 +27,11 @@ import store from '@/store'
 export default class Home extends Vue {
   email = ''
   password = ''
-  test () {
-    console.log(process.env)
+  version = ''
+
+  async mounted () {
+    const result = await CosmApi.getApiVersion()
+    this.version = result.version
   }
 
   async login () {
@@ -51,7 +51,7 @@ export default class Home extends Vue {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   height: 100vh;
   form {
     @include app-form;
@@ -72,6 +72,14 @@ export default class Home extends Vue {
 
   .login-btn {
     padding: 10px;
+  }
+
+  .app-version {
+    position: absolute;
+    margin: 2px;
+    font-size: 10px;
+    bottom: 0;
+    left: 0;
   }
 }
 </style>
