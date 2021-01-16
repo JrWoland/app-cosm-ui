@@ -1,9 +1,12 @@
 [build]
   VUE_APP_API_LINK = "https://coms-test.ct8.pl/"
 
+[context.production]
+  environment = { VUE_APP_API_LINK = "https://coms-test.ct8.pl/" }
+
 [context.test]
-  VUE_APP_API_LINK = "https://coms-test.ct8.pl/"
-    
+  environment = { VUE_APP_API_LINK = "https://coms-test.ct8.pl/" }
+
 [context.development]
-  VUE_APP_API_LINK = "https://coms-dev.ct8.pl/"
+  environment = { VUE_APP_API_LINK = "https://coms-dev.ct8.pl/" }
     
