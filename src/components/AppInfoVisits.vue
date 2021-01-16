@@ -10,8 +10,16 @@
           <span v-show="isVisitDetailsShown" @click="showVisitsList"><i  class="fas fa-arrow-left nav-arrow"></i></span>
           <AppSubMenuBtn v-show="!clientDetailsEditable && isVisitDetailsShown" @item-menu-clicked="catchEvent" :items="['Edit', 'Remove visit']"/>
           <div v-show="clientDetailsEditable">
-            <AppButton class= "sub-menu-btn sub-menu-btn--cancel" @click="onCancel">Cancel</AppButton>
-            <AppButton class="sub-menu-btn"  @click="onUpdate">Save</AppButton>
+            <AppButton class= "sub-menu-btn sub-menu-btn--cancel" @click="onCancel">
+              <template v-slot:text>
+                <span>Anuluj</span>
+              </template>
+            </AppButton>
+            <AppButton class="sub-menu-btn"  @click="onUpdate">
+              <template v-slot:text>
+                <span>Zapisz</span>
+              </template>
+            </AppButton>
           </div>
         </AppInfoBoxHeader>
       </template>
@@ -57,7 +65,7 @@ export default class AppInfoVisits extends Vue {
  catchEvent (event) {
    const events = {
      Edit: () => { this.clientDetailsEditable = true },
-     'Remove visit': () => this.removeVisit(this.currentVisit._id)
+     'Remove visit': () => confirm('Chcesz usunąć wizytę?') ? this.removeVisit(this.currentVisit._id) : null
    }
    events[event]()
  }
@@ -84,7 +92,6 @@ export default class AppInfoVisits extends Vue {
 
  async onUpdate () {
    const { clientId } = this.$route.params
-   console.log(this.currentVisit)
    await CosmApi.updateVisit(clientId, this.currentVisit._id, this.currentVisit)
    this.clientDetailsEditable = false
  }

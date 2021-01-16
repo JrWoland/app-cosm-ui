@@ -3,7 +3,16 @@
     <form @submit.prevent="login">
       <label for="email" name="email"><span>Email </span><input v-model="email" type="email" name="email"></label>
       <label for="email" name="password"><span>Password </span><input v-model="password" type="password" name="password"></label>
-      <AppButton class="login-btn" @click="login">Login</AppButton>
+      <AppButton class="login-btn" @click="login">
+        <template v-slot:text>
+          Login
+        </template>
+      </AppButton>
+      <AppButton class="login-btn" @click="test">
+        <template v-slot:text>
+          test
+        </template>
+      </AppButton>
     </form>
   </div>
 </template>
@@ -21,6 +30,9 @@ import store from '@/store'
 export default class Home extends Vue {
   email = ''
   password = ''
+  test () {
+    console.log(process.env)
+  }
 
   async login () {
     try {

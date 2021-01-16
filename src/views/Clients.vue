@@ -11,7 +11,12 @@
     </router-link>
 
     <AppButton class="clients-list__add-client" @click="goToClientCreateForm">
-      <i class="fas fa-plus"></i>
+      <template v-slot:icon>
+        <i class="fas fa-plus"></i>
+      </template>
+      <template v-slot:text>
+        <span class="clients-list__add-client-text">dodaj klienta</span>
+      </template>
     </AppButton>
   </div>
 </template>
@@ -56,13 +61,22 @@ export default class Clients extends Vue {
 
   &__add-client {
     position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     bottom: 20px;
     left: 20px;
     border-radius: 50px;
     height: 60px;
     width: 60px;
     padding: 0;
-    font-size: 24px;
+    font-size: 22px;
+  }
+
+  &__add-client-text {
+    margin-top: 5px;
+    font-size: 8px;
   }
 }
 </style>

@@ -22,7 +22,9 @@
       <input class="add-client__input" v-model="formNewClient.age" age="number" type="number" name="age" id="age"
     /></label>
     <AppButton class="add-client__save-btn" :animate="false" @click="createClient">
-      Dodaj klienta
+      <template v-slot:text>
+        <span>Dodaj klienta</span>
+      </template>
     </AppButton>
   </form>
 

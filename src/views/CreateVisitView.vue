@@ -20,7 +20,9 @@
       <input class="add-visit__input" type="time" step="60 " v-model="time"/>
     </label>
     <AppButton class="add-visit__save-btn" :animate="false" @click="createVisit">
-      Dodaj wizytę
+      <template v-slot:text>
+        <span>Dodaj Wizytę</span>
+      </template>
     </AppButton>
   </form>
 
