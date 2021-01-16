@@ -1,7 +1,10 @@
-[build]
+[build.environment]
   VUE_APP_API_LINK = "https://coms-test.ct8.pl/"
 
 [context.production]
+  environment = { VUE_APP_API_LINK = "https://coms-test.ct8.pl/" }
+
+[context.branch-deploy]
   environment = { VUE_APP_API_LINK = "https://coms-test.ct8.pl/" }
 
 [context.test]
