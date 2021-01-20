@@ -1,14 +1,18 @@
 <template>
   <div class="home">
-    <form @submit.prevent="login">
-      <label for="email" name="email"><span>Email </span><input v-model="email" type="email" name="email"></label>
-      <label for="email" name="password"><span>Password </span><input v-model="password" type="password" name="password"></label>
-      <AppButton class="login-btn" @click="login">
-        <template v-slot:text>
-          Login
-        </template>
-      </AppButton>
-    </form>
+    <AppInfoBox :loading="isLoading" class="box">
+      <template v-slot:content>
+        <form @submit.prevent="login">
+          <label for="email" name="email"><span>Email </span><input v-model="email" type="email" name="email"></label>
+          <label for="email" name="password"><span>Password </span><input v-model="password" type="password" name="password"></label>
+          <AppButton class="login-btn" @click="login">
+            <template v-slot:text>
+              Login
+            </template>
+          </AppButton>
+        </form>
+      </template>
+    </AppInfoBox>
     <span class="app-version">api.{{version}} ui.{{require('../../package.json').version}}</span>
   </div>
 </template>
@@ -17,17 +21,19 @@
 
 import { Options, Vue } from 'vue-class-component'
 import AppButton from '../components/AppButton.vue'
+import AppInfoBox from '../components/AppInfoBox.vue'
 import CosmApi from '@/api/CosmApi'
 import store from '@/store'
 
 @Options({
   name: 'Home',
-  components: { AppButton }
+  components: { AppButton, AppInfoBox }
 })
 export default class Home extends Vue {
   email = ''
   password = ''
   version = ''
+  isLoading = false
 
   async mounted () {
     const result = await CosmApi.getApiVersion()
@@ -35,12 +41,15 @@ export default class Home extends Vue {
   }
 
   async login () {
+    this.isLoading = true
     try {
       await store.dispatch('login', { email: this.email, password: this.password })
       this.$router.push({ path: '/clients' })
+      this.isLoading = false
     } catch (error) {
       alert('LOGIN ERROR')
     }
+    this.isLoading = false
   }
 }
 </script>
@@ -51,12 +60,14 @@ export default class Home extends Vue {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  width: 100%;
   height: 100vh;
+  .box {
+    max-width: 400px
+  }
   form {
     @include app-form;
-    width: 95%;
-    max-width: 400px;
+    margin: auto;
     display: flex;
     flex-direction: column;
   }

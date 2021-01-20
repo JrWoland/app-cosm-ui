@@ -1,6 +1,7 @@
 <template>
   <div class="clients-list">
     <input type="text" class="clients-list__search" v-model="searchClient" placeholder="Szukaj klienta">
+    <i class="fas fa-search"></i>
     <router-link
       v-for="(client, index) in clientListToDisplay"
       :key="index"
@@ -16,7 +17,7 @@
         <i class="fas fa-plus"></i>
       </template>
       <template v-slot:text>
-        <span class="clients-list__add-client-text">dodaj klienta</span>
+        <span class="clients-list__add-client-text">nowy klient</span>
       </template>
     </AppButton>
   </div>
@@ -37,8 +38,7 @@ export default class Clients extends Vue {
   public searchClient = '';
 
   async created () {
-    const clients: Array<Client> = await CosmApi.getClients()
-    this.clientsList = clients
+    this.clientsList = await CosmApi.getClients()
   }
 
   get clientListToDisplay () {
@@ -65,6 +65,7 @@ export default class Clients extends Vue {
 
   &__search {
     @include search-input;
+    padding: 10px;
   }
 
   &__item {

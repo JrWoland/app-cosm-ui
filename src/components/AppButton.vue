@@ -38,7 +38,7 @@ export default class AppButton extends Vue {
 
 .bubbly-button{
   user-select: none;
-  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-family:'Nunito', sans-serif;
   display: inline-block;
   font-size: 1em;
   padding: 1em 2em;

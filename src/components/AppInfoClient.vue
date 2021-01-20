@@ -3,7 +3,7 @@
 
   <span>Informacje</span>
 
-  <AppInfoBox>
+  <AppInfoBox :loading="isLoading">
       <template v-slot:header>
         <AppInfoBoxHeader>
           <div></div>
@@ -55,6 +55,7 @@ import CosmApi from '@/api/CosmApi'
 })
 export default class AppInfoClient extends Vue {
     clientDetailsEditable = false
+    isLoading = false
 
     catchEvent (type) {
       const events = {
@@ -64,11 +65,13 @@ export default class AppInfoClient extends Vue {
     }
 
     async updateClient () {
+      this.isLoading = true
       const { clientId } = this.$route.params
       const { name, surname, age, phone } = { ...this.client }
       const newData = { name, surname, age, phone }
       await CosmApi.updateClient(clientId, newData)
       this.clientDetailsEditable = false
+      this.isLoading = false
     }
 }
 </script>

@@ -14,11 +14,14 @@
   width: 100%;
   outline: none;
   padding: 5px 10px;
-  color: $font-color;
   font-size: 13px;
   font-family: $main-font-family;
-  border: 1px solid $font-color;
-  border-radius: 5px;
+  border: 1px solid $main-border-color;
+  border-radius: 10px;
+  &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: $main-border-color;
+    opacity: 1; /* Firefox */
+  }
 }
 
 @mixin  app-form {
@@ -26,8 +29,6 @@
   min-height: 100px;
   margin-top: 5px;
   padding: 5px;
-  background-color: #fff;
-  border-radius: $main-border-radius;
 
      label {
        display: flex;
