@@ -28,6 +28,13 @@ export default class AppSubMenuBtn extends Vue {
 
   toggleMenu () {
     this.showMenu = !this.showMenu
+    // if (this.showMenu) {
+    //   document.body.addEventListener('click', function () {
+    //     console.log('weszło', this.showMenu)
+
+    //     this.showMenu = false
+    //   }.bind(this))
+    // }
   }
 }
 </script>

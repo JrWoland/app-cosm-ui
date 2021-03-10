@@ -13,11 +13,11 @@
 
      <label for="visit-price">
        <span>Cena</span>
-       <input class="price" type="number" v-model="visit.price" :disabled="!isEditable">PLN
+       <input class="price" type="number" v-model="visit.price" :disabled="!isEditable">
      </label>
 
     <label for="visit-purpose">
-      <span>Cel wizyty</span>
+       <span>Cel wizyty</span>
        <select name="visit-purpose" id="visit-purpose" v-model="visit.purpose" :disabled="!isEditable">
          <option class="add-visit__option" v-for="purpose in visitPurposes" :value="purpose.value" :key="purpose.value">{{purpose['pl-PL']}}</option>
        </select>
@@ -116,8 +116,8 @@ import { lashesModelingTypes } from '@/assets/ts/lashesModelingTypes'
 })
 export default class AppLashesDetails extends Vue {
   visitPurposes = visitPurposes
-  lashesModelingTypes = lashesModelingTypes
 
+  lashesModelingTypes = lashesModelingTypes
   get modelingOptions () {
     if (!this.visit.length.length || !this.visit.width) return []
     return this.visit.length.map(len => {
@@ -130,6 +130,16 @@ export default class AppLashesDetails extends Vue {
 @import '../assets/scss/mixins.scss';
 .app-form {
   @include app-form;
+  padding: 5px;
+  label {
+    flex-direction: column;
+    margin: 20px 0px;
+  }
+
+  span {
+    // border-bottom: 1px solid $main-border-color;
+    width: 100%;
+  }
 
   .modeling-layout {
     flex-direction: column;

@@ -12,18 +12,19 @@
 </template>
 
 <script lang="ts">
+import CosmApi from '@/api/CosmApi'
+import Client from '@/interfaces/Client'
 import { Options, Vue } from 'vue-class-component'
-import AppNavSecondary from '../components/AppNavSecondary.vue'
 import AppInfoClient from '../components/AppInfoClient.vue'
 import AppInfoVisits from '../components/AppInfoVisits.vue'
-import CosmApi from '@/api/CosmApi'
+import AppNavSecondary from '../components/AppNavSecondary.vue'
 
 @Options({
   name: 'ClientCardView',
   components: { AppNavSecondary, AppInfoClient, AppInfoVisits }
 })
 export default class ClientCardView extends Vue {
-  clientDetails = {}
+  clientDetails= { } as Client
   clientDetailsEditable = false
 
   created () {

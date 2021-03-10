@@ -48,7 +48,7 @@ export default class CreateClientView extends Vue {
     name: '',
     surname: '',
     phone: '',
-    age: 0
+    age: undefined
   }
 
   async createClient () {

@@ -66,12 +66,16 @@ export default class AppInfoClient extends Vue {
 
     async updateClient () {
       this.isLoading = true
-      const { clientId } = this.$route.params
-      const { name, surname, age, phone } = { ...this.client }
-      const newData = { name, surname, age, phone }
-      await CosmApi.updateClient(clientId, newData)
-      this.clientDetailsEditable = false
+      try {
+        const { clientId } = this.$route.params
+        const { name, surname, age, phone } = { ...this.client }
+        const newData = { name, surname, age, phone }
+        await CosmApi.updateClient(clientId, newData)
+      } catch (error) {
+        alert(error)
+      }
       this.isLoading = false
+      this.clientDetailsEditable = false
     }
 }
 </script>

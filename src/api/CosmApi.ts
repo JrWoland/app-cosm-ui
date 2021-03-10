@@ -18,12 +18,12 @@ class CosmApi {
     return result.data
   }
 
-  async getClients () {
+  async getClients (): Promise<Client[]> {
     const result = await $http.get('/account/clients')
     return result.data
   }
 
-  async getClient (clientId: string | string[]) {
+  async getClient (clientId: string | string[]): Promise<Client> {
     const result = await $http.get(`/account/client/${clientId}`)
     return result.data
   }

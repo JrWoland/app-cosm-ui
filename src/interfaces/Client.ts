@@ -3,5 +3,5 @@ export default interface Client {
   name: string;
   surname: string;
   phone: string;
-  age?: number;
+  age?: number | null;
 }

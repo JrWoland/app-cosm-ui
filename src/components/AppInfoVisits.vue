@@ -3,7 +3,7 @@
 
   <span>Wizyty</span>
 
-  <AppInfoBox>
+  <AppInfoBox :loading="isLoading">
       <template v-slot:header>
         <AppInfoBoxHeader>
           <span @click="createVisit" v-show="!isVisitDetailsShown"><i  class="fas fa-plus nav-arrow"></i></span>
@@ -57,6 +57,7 @@ export default class AppInfoVisits extends Vue {
  currentVisit = {}
  visitBeforeUpdate = {}
  isVisitDetailsShown = false
+ isLoading = false
 
  created () {
    this.getVisitsList()
@@ -91,9 +92,15 @@ export default class AppInfoVisits extends Vue {
  }
 
  async onUpdate () {
-   const { clientId } = this.$route.params
-   await CosmApi.updateVisit(clientId, this.currentVisit._id, this.currentVisit)
+   this.isLoading = true
+   try {
+     const { clientId } = this.$route.params
+     await CosmApi.updateVisit(clientId, this.currentVisit._id, this.currentVisit)
+   } catch (error) {
+     alert(error)
+   }
    this.clientDetailsEditable = false
+   this.isLoading = false
  }
 
  async getVisitsList () {

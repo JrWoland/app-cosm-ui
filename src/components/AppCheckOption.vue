@@ -165,7 +165,7 @@ export default class AppCheckOption extends Vue {
   display: inline-block;
   border: 2px solid rgb(199, 199, 199);
   text-align: center;
-  line-height: 1.7em;
+  line-height: 1.9em;
   width: 2.7em;
   height: 2.7em;
   border-radius: 505px;
