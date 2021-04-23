@@ -1,11 +1,11 @@
 import AppClientVisit from '@/components/AppClientVisit.vue'
 import ClientCardView from '@/views/ClientCardView.vue'
-import Clients from '@/views/Clients.vue'
+import ClientsList from '@/views/ClientsList.vue'
 import CreateClientView from '@/views/CreateClientView.vue'
 import CreateVisitView from '@/views/CreateVisitView.vue'
-import Home from '@/views/Home.vue'
+import Login from '@/views/Login.vue'
 import Panel from '@/views/Panel.vue'
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -14,8 +14,8 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Login',
+    component: Login
   },
   {
     path: '/create-client',
@@ -37,21 +37,22 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '/clients',
-        name: 'Clients',
-        component: Clients
-      }
-    ]
-  },
-  {
-    path: '/client/:clientId',
-    name: 'Client',
-    component: ClientCardView,
-    meta: { requiresAuth: true },
-    children: [
+        name: 'ClientsList',
+        component: ClientsList,
+        meta: { requiresAuth: true }
+      },
       {
-        path: 'visit/:visitId',
-        name: 'Visit',
-        component: AppClientVisit
+        path: '/client/:clientId',
+        name: 'Client',
+        component: ClientCardView,
+        meta: { requiresAuth: true },
+        children: [
+          {
+            path: 'visit/:visitId',
+            name: 'Visit',
+            component: AppClientVisit
+          }
+        ]
       }
     ]
   }
@@ -59,7 +60,12 @@ const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  scrollBehavior (to: RouteLocationNormalizedLoaded, from: RouteLocationNormalizedLoaded, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else return { top: 0 }
+  }
 })
 
 router.beforeEach((to, from, next) => {

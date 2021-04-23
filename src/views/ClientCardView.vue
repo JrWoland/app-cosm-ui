@@ -1,7 +1,7 @@
 <template>
   <div class="client">
       <AppNavSecondary class="client__nav">
-        <router-link to="/clients"><i  class="fas fa-arrow-left client__nav-arrow"></i></router-link>
+        <span @click="toClients"><i  class="fas fa-arrow-left client__nav-arrow"></i></span>
         <span class="client__name">{{clientDetails.name}} {{clientDetails.surname}}</span>
       </AppNavSecondary>
 
@@ -38,6 +38,10 @@ export default class ClientCardView extends Vue {
 
   catchEvent () {
     this.clientDetailsEditable = true
+  }
+
+  toClients () {
+    this.$router.back()
   }
 }
 </script>

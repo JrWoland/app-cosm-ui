@@ -1,12 +1,10 @@
 <template>
   <div class="panel">
     <AppNavSecondary>
-      <!-- <router-link class="panel__link" to="/panel"><i class="fas fa-home"></i></router-link> -->
-      <router-link class="panel__link" to="/clients"><i class="fas fa-users"></i></router-link>
+      <router-link class="panel__link" :to="{name: 'Panel'}"><i class="fas fa-home"></i></router-link>
+      <router-link class="panel__link" :to="{name: 'ClientsList'}"><i class="fas fa-users"></i></router-link>
     </AppNavSecondary>
-
     <router-view />
-
   </div>
 </template>
 
@@ -25,7 +23,7 @@ export default class Panel extends Vue {}
 <style lang="scss" scoped>
 @import  '../assets/scss/variables.scss';
 .panel {
-  margin-top: 55px;
+  margin-top: $nav-bar-height;
 
   &__link {
     color: $font-color;

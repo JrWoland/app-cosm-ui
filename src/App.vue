@@ -6,10 +6,8 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import Home from './views/Home.vue'
 @Options({
-  name: 'App',
-  components: { Home }
+  name: 'App'
 })
 export default class App extends Vue {}
 </script>

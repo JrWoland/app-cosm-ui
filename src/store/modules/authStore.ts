@@ -3,11 +3,11 @@ import $http from '@/api/HttpService'
 import Credencials from '@/interfaces/Credencials'
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
 
-interface User {
+export interface User {
   token: string;
 }
 
-interface AuthState {
+export interface AuthState {
   user: User;
 }
 

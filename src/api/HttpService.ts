@@ -2,6 +2,7 @@ import $store from '@/store/index'
 import axios from 'axios'
 const $http = axios.create({
   baseURL: process.env.VUE_APP_API_LINK
+  // baseURL: 'http://localhost:3000'
 
 })
 const token = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '').token : ''

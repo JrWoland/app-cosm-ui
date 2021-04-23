@@ -23,10 +23,8 @@ import { Options, Vue } from 'vue-class-component'
 import AppButton from '../components/AppButton.vue'
 import AppInfoBox from '../components/AppInfoBox.vue'
 import CosmApi from '@/api/CosmApi'
-import store from '@/store'
-
 @Options({
-  name: 'Home',
+  name: 'Login',
   components: { AppButton, AppInfoBox }
 })
 export default class Home extends Vue {
@@ -43,8 +41,8 @@ export default class Home extends Vue {
   async login () {
     this.isLoading = true
     try {
-      await store.dispatch('login', { email: this.email, password: this.password })
-      this.$router.push({ path: '/clients' })
+      await this.$store.dispatch('login', { email: this.email, password: this.password })
+      this.$router.push({ name: 'ClientsList' })
       this.isLoading = false
     } catch (error) {
       alert('LOGIN ERROR')
