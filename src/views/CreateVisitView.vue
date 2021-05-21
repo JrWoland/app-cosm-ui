@@ -1,4 +1,5 @@
 <template>
+  <AppNavComposed :action="() => $router.back()" title="Stwórz wizytę"/>
   <div>
   <form class="add-visit" >
     <label class="add-visit__label" for="firstName">
@@ -21,7 +22,7 @@
     </label>
     <AppButton class="add-visit__save-btn" :animate="false" @click="createVisit">
       <template v-slot:text>
-        <span>Dodaj Wizytę</span>
+        <span>Zapisz</span>
       </template>
     </AppButton>
   </form>
@@ -33,6 +34,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import AppButton from '@/components/AppButton.vue'
+import AppNavComposed from '@/components/AppNavComposed.vue'
 import { visitTypes } from '@/assets/ts/visitsTypes'
 import { visitPurposes } from '@/assets/ts/visitsPurpose'
 import Client from '@/interfaces/Client'
@@ -40,7 +42,7 @@ import CosmApi from '@/api/CosmApi'
 
 @Options({
   name: 'CreateVisitView',
-  components: { AppButton }
+  components: { AppButton, AppNavComposed }
 })
 export default class CreateVisitView extends Vue {
   visitTypes = visitTypes;
@@ -70,8 +72,10 @@ export default class CreateVisitView extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import "../assets/scss/variables.scss";
 .add-visit {
+  margin: $nav-bar-height 10px 0px 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -106,8 +110,6 @@ export default class CreateVisitView extends Vue {
 
   &__save-btn {
     margin-top: 20px;
-    background-color: #fff;
-    color: blue;
     width: 90%;
   }
 }

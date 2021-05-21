@@ -1,4 +1,5 @@
 <template>
+  <AppNavComposed :action="toClients" title="Stwórz klienta"/>
   <div>
   <form class="add-client" >
     <label class="add-client__label" for="firstName">
@@ -23,7 +24,7 @@
     /></label>
     <AppButton class="add-client__save-btn" :animate="false" @click="createClient">
       <template v-slot:text>
-        <span>Dodaj klienta</span>
+        <span>Zapisz</span>
       </template>
     </AppButton>
   </form>
@@ -35,12 +36,13 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import AppButton from '@/components/AppButton.vue'
+import AppNavComposed from '@/components/AppNavComposed.vue'
 import Client from '@/interfaces/Client'
 import CosmApi from '@/api/CosmApi'
 
 @Options({
   name: 'CreateClientView',
-  components: { AppButton }
+  components: { AppButton, AppNavComposed }
 })
 export default class CreateClientView extends Vue {
   formNewClient: Client = {
@@ -49,6 +51,10 @@ export default class CreateClientView extends Vue {
     surname: '',
     phone: '',
     age: undefined
+  }
+
+  toClients () {
+    this.$router.back()
   }
 
   async createClient () {
@@ -62,13 +68,31 @@ export default class CreateClientView extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import "../assets/scss/variables.scss";
 .add-client {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
   align-items: center;
+  margin: $nav-bar-height 10px 0px 10px;
+
+  &__title {
+    text-align: center;
+    font-size: 20px;
+  }
+
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__nav-arrow {
+    color: $main-color;
+    width: 20px;
+  }
 
   &__label {
     margin-top:10px;
@@ -94,9 +118,8 @@ export default class CreateClientView extends Vue {
 
   &__save-btn {
     margin-top: 20px;
-    background-color: #fff;
-    color: blue;
     width: 90%;
   }
+
 }
 </style>

@@ -110,7 +110,7 @@ export default class AppCheckOption extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .dynamic {
   width: 100%;

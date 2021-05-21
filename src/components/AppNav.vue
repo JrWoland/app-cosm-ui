@@ -8,9 +8,9 @@
 import { Options, Vue } from 'vue-class-component'
 
 @Options({
-  name: 'AppNavSecondary'
+  name: 'AppNav'
 })
-export default class AppNavSecondary extends Vue {}
+export default class AppNav extends Vue {}
 </script>
 
 <style lang="scss" scoped>
@@ -25,6 +25,6 @@ export default class AppNavSecondary extends Vue {}
   text-align: left;
   box-shadow: $main-box-shadow;
   padding: 0px 10px;
-  z-index: 1;
+  z-index: 100;
 }
 </style>

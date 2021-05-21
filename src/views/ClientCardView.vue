@@ -1,13 +1,8 @@
 <template>
   <div class="client">
-      <AppNavSecondary class="client__nav">
-        <span @click="toClients"><i  class="fas fa-arrow-left client__nav-arrow"></i></span>
-        <span class="client__name">{{clientDetails.name}} {{clientDetails.surname}}</span>
-      </AppNavSecondary>
-
+      <AppNavComposed :action="toClients" :title="navTitle"/>
       <AppInfoClient :client="clientDetails"/>
       <AppInfoVisits />
-
   </div>
 </template>
 
@@ -17,15 +12,20 @@ import Client from '@/interfaces/Client'
 import { Options, Vue } from 'vue-class-component'
 import AppInfoClient from '../components/AppInfoClient.vue'
 import AppInfoVisits from '../components/AppInfoVisits.vue'
-import AppNavSecondary from '../components/AppNavSecondary.vue'
+import AppNav from '../components/AppNav.vue'
+import AppNavComposed from '../components/AppNavComposed.vue'
 
 @Options({
   name: 'ClientCardView',
-  components: { AppNavSecondary, AppInfoClient, AppInfoVisits }
+  components: { AppNav, AppInfoClient, AppInfoVisits, AppNavComposed }
 })
 export default class ClientCardView extends Vue {
-  clientDetails= { } as Client
+  clientDetails= { name: '', surname: '' } as Client
   clientDetailsEditable = false
+
+  get navTitle () {
+    return `${this.clientDetails.name} ${this.clientDetails.surname}` || ''
+  }
 
   created () {
     this.getClientInfo()

@@ -1,20 +1,20 @@
 <template>
   <div class="panel">
-    <AppNavSecondary>
+    <AppNav>
       <router-link class="panel__link" :to="{name: 'Panel'}"><i class="fas fa-home"></i></router-link>
       <router-link class="panel__link" :to="{name: 'ClientsList'}"><i class="fas fa-users"></i></router-link>
-    </AppNavSecondary>
+    </AppNav>
     <router-view />
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import AppNavSecondary from '../components/AppNavSecondary.vue'
+import AppNav from '../components/AppNav.vue'
 
 @Options({
   name: 'Panel',
-  components: { AppNavSecondary }
+  components: { AppNav }
 })
 
 export default class Panel extends Vue {}
