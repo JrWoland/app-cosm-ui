@@ -22,7 +22,7 @@
 
     <AppButton class="clients-list__add-client" @click="goToClientCreateForm">
       <template v-slot:icon>
-        <i class="fas fa-plus"></i>
+        <i class="lni lni-plus"></i>
       </template>
     </AppButton>
   </div>
@@ -123,7 +123,7 @@ export default class Clients extends Vue {
 
   &__delimiter {
     position: sticky;
-    top: 57px;
+    top: calc(#{$nav-bar-height} + 10px);
     width: 100%;
     display: block;
     width: 30px;

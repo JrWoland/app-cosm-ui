@@ -1,6 +1,6 @@
 <template>
   <AppNav class="nav">
-    <span @click="action"><i  class="fas fa-arrow-left nav-arrow"></i></span>
+    <span class="nav-arrow" @click="action"><i class="lni lni-chevron-left"></i></span>
     <span class="name">{{ title }}</span>
   </AppNav>
 </template>

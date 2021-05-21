@@ -6,8 +6,8 @@
   <AppInfoBox :loading="isLoading">
       <template v-slot:header>
         <AppInfoBoxHeader>
-          <span @click="createVisit" v-show="!isVisitDetailsShown"><i  class="fas fa-plus nav-arrow"></i></span>
-          <span v-show="isVisitDetailsShown" @click="showVisitsList"><i  class="fas fa-arrow-left nav-arrow"></i></span>
+          <span @click="createVisit" v-show="!isVisitDetailsShown"><i  class="lni lni-plus nav-arrow"></i></span>
+          <span v-show="isVisitDetailsShown" @click="showVisitsList"><i  class="lni lni-chevron-left nav-arrow"></i></span>
           <AppSubMenuBtn v-show="!clientDetailsEditable && isVisitDetailsShown" @item-menu-clicked="catchEvent" :items="['Edit', 'Remove visit']"/>
           <div v-show="clientDetailsEditable">
             <AppButton class= "sub-menu-btn sub-menu-btn--cancel" @click="onCancel">

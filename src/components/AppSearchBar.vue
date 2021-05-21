@@ -8,7 +8,7 @@
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
     />
-    <i class="fas fa-search"></i>
+    <i class="lni lni-search-alt"></i>
   </div>
 </template>
 

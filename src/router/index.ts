@@ -3,8 +3,9 @@ import ClientCardView from '@/views/ClientCardView.vue'
 import ClientsList from '@/views/ClientsList.vue'
 import CreateClientView from '@/views/CreateClientView.vue'
 import CreateVisitView from '@/views/CreateVisitView.vue'
+import CalendarView from '@/views/CalendarView.vue'
 import Login from '@/views/Login.vue'
-import Panel from '@/views/Panel.vue'
+import AppMainView from '@/views/AppMainView.vue'
 import { createRouter, createWebHistory, RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
@@ -32,9 +33,15 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/panel',
     name: 'Panel',
-    component: Panel,
+    component: AppMainView,
     meta: { requiresAuth: true },
     children: [
+      {
+        path: '/calendar',
+        name: 'Calendar',
+        component: CalendarView,
+        meta: { requiresAuth: true }
+      },
       {
         path: '/clients',
         name: 'ClientsList',
