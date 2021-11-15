@@ -1,14 +1,14 @@
 [build.environment]
-  VUE_APP_API_LINK = "https://coms-test.ct8.pl/"
+  VUE_APP_API_LINK = "https://cosm-api-test.jrwoland.smallhost.pl/"
 
 [context.production]
-  environment = { VUE_APP_API_LINK = "https://coms-test.ct8.pl/" }
+  environment = { VUE_APP_API_LINK = "https://cosm-api-test.jrwoland.smallhost.pl/" }
 
 [context.branch-deploy]
-  environment = { VUE_APP_API_LINK = "https://coms-test.ct8.pl/" }
+  environment = { VUE_APP_API_LINK = "https://cosm-api-test.jrwoland.smallhost.pl/" }
 
 [context.test]
-  environment = { VUE_APP_API_LINK = "https://coms-test.ct8.pl/" }
+  environment = { VUE_APP_API_LINK = "https://cosm-api-test.jrwoland.smallhost.pl/" }
 
 [context.development]
   environment = { VUE_APP_API_LINK = "https://coms-dev.ct8.pl/" }

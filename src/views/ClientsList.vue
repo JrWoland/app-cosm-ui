@@ -46,12 +46,8 @@ export default class Clients extends Vue {
   public test = {};
 
   async created () {
-    if (this.$store.state.clientListStore.list.length > 0) {
-      this.clientsList = [...this.$store.state.clientListStore.list]
-    } else {
-      this.clientsList = await CosmApi.getClients()
-      this.$store.dispatch('setClientList', this.clientsList)
-    }
+    this.clientsList = await CosmApi.getClients()
+    this.$store.dispatch('setClientList', this.clientsList)
   }
 
   mounted () {
