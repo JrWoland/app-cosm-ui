@@ -74,10 +74,6 @@
      </label>
 
      <label v-if="modelingOptions.length > 0" class="modeling-layout">
-       <span>Modelowanie</span>
-       <select name="lashes-modeling" id="lashes-modeling" v-model="visit.lashesModelingType" :disabled="!isEditable">
-        <option class="add-visit__option" v-for="modeling in lashesModelingTypes" :value="modeling.value" :key="modeling.value">{{modeling['pl-PL']}}</option>
-       </select>
        <AppCheckOption
         :isDynamic="true"
         :available-options="modelingOptions"
@@ -85,6 +81,13 @@
         :isEditable="isEditable"
         @list-updated="(newList) => visit.modeling = newList"
         />
+     </label>
+
+      <label for="">
+       <span>Modelowanie</span>
+       <select name="lashes-modeling" id="lashes-modeling" v-model="visit.lashesModelingType" :disabled="!isEditable">
+        <option class="add-visit__option" v-for="modeling in lashesModelingTypes" :value="modeling.value" :key="modeling.value">{{modeling['pl-PL']}}</option>
+       </select>
      </label>
 
     <span>Notatki:</span>
