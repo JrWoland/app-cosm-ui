@@ -16,7 +16,20 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Login',
-    component: Login
+    component: Login,
+    beforeEnter: (to, from, next) => {
+      const loggedIn = localStorage.getItem('user')
+      console.log(from)
+      if (loggedIn) {
+        if (from.path === '/') {
+          next('/clients')
+        } else {
+          next(from.path)
+        }
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/create-client',
