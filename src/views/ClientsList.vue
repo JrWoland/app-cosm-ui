@@ -1,6 +1,6 @@
 <template>
   <div class="clients-list__search">
-    <AppSearchBar @update:modelValue="storeSearchingString" :placeholder="'Szukaj wg nazwiska'" v-model="searchClient" />
+    <AppSearchBar @update:modelValue="storeSearchingString" :placeholder="'Szukaj wg imienia lub nazwiska'" v-model="searchClient" />
   </div>
 
   <div class="clients-list">
@@ -65,7 +65,7 @@ export default class Clients extends Vue {
         clientA.surname.localeCompare(clientB.surname)
       )
       .filter(({ name, surname }) =>
-        surname.toLowerCase().includes(this.searchClient.toLowerCase())
+        name.toLowerCase().includes(this.searchClient.toLowerCase()) || surname.toLowerCase().includes(this.searchClient.toLowerCase())
       )
   }
 
